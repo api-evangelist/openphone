@@ -1,0 +1,1437 @@
+openapi: 3.1.0
+info:
+  title: Quo Public Calls Users API
+  version: 1.0.0
+  description: API for connecting with Quo.
+  contact:
+    name: Quo Support
+    email: support@quo.com
+    url: https://support.quo.com/
+  termsOfService: https://www.quo.com/terms
+servers:
+- description: Production server
+  url: https://api.quo.com
+security:
+- apiKey: []
+tags:
+- description: Operations related to users
+  name: Users
+paths:
+  /users:
+    get:
+      tags:
+      - Users
+      summary: List users
+      description: Retrieve a paginated list of users in your Quo workspace.
+      operationId: listUsers
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          description: Max number of items to return per page.
+          default: 10
+          maximum: 50
+          minimum: 1
+          type: integer
+      - in: query
+        name: after
+        required: false
+        schema:
+          examples:
+          - eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+          type: string
+        example: eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - nextCursor
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                      - pictureUrl
+                      - role
+                      - createdAt
+                      - updatedAt
+                      properties:
+                        id:
+                          description: The unique identifier of the user.
+                          examples:
+                          - US123abc
+                          pattern: ^US(.*)$
+                          type: string
+                          example: US123abc
+                        email:
+                          description: The user's email address.
+                          examples:
+                          - johndoe@example.com
+                          format: email
+                          type: string
+                          example: johndoe@example.com
+                        firstName:
+                          anyOf:
+                          - description: The user's first name.
+                            examples:
+                            - John
+                            type: string
+                            example: John
+                          - type: 'null'
+                        lastName:
+                          anyOf:
+                          - description: The user's last name.
+                            examples:
+                            - Doe
+                            type: string
+                            example: Doe
+                          - type: 'null'
+                        pictureUrl:
+                          anyOf:
+                          - description: The user's picture URL.
+                            examples:
+                            - https://example.com/picture.jpg
+                            format: uri
+                            type: string
+                            example: https://example.com/picture.jpg
+                          - type: 'null'
+                        role:
+                          type: string
+                          enum:
+                          - owner
+                          - admin
+                          - member
+                          description: The user's role in the organization.
+                          examples:
+                          - owner
+                          - admin
+                          - member
+                          example: owner
+                        createdAt:
+                          description: Timestamp of user creation in ISO 8601 format.
+                          examples:
+                          - '2022-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2022-01-01T00:00:00Z'
+                        updatedAt:
+                          description: Timestamp of last user update in ISO 8601 format.
+                          examples:
+                          - '2022-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2022-01-01T00:00:00Z'
+                  nextCursor:
+                    description: Cursor for the next page, or null when there are no more pages.
+                    examples:
+                    - eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+                    example: eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                errors:
+                - path: /userId
+                  message: Expected string to match '^US(.*)$'
+                  value: abc123
+                  schema:
+                    type: TemplateLiteral
+                    pattern: ^US(.*)$
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Unauthorized
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: We have encountered an unknown error
+                docs: https://quo.com/docs
+                title: Unknown
+                trace: '6897907457496870895'
+  /users/{userId}:
+    get:
+      tags:
+      - Users
+      summary: Get a user by ID
+      description: Retrieve detailed information about a specific user in your Quo workspace using the user's unique identifier.
+      operationId: getUserById
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          description: The unique identifier of the user being retrieved.
+          examples:
+          - US123abc
+          pattern: ^US(.*)$
+          type: string
+        example: US123abc
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - email
+                    - firstName
+                    - lastName
+                    - pictureUrl
+                    - role
+                    - createdAt
+                    - updatedAt
+                    properties:
+                      id:
+                        description: The unique identifier of the user.
+                        examples:
+                        - US123abc
+                        pattern: ^US(.*)$
+                        type: string
+                        example: US123abc
+                      email:
+                        description: The user's email address.
+                        examples:
+                        - johndoe@example.com
+                        format: email
+                        type: string
+                        example: johndoe@example.com
+                      firstName:
+                        anyOf:
+                        - description: The user's first name.
+                          examples:
+                          - John
+                          type: string
+                          example: John
+                        - type: 'null'
+                      lastName:
+                        anyOf:
+                        - description: The user's last name.
+                          examples:
+                          - Doe
+                          type: string
+                          example: Doe
+                        - type: 'null'
+                      pictureUrl:
+                        anyOf:
+                        - description: The user's picture URL.
+                          examples:
+                          - https://example.com/picture.jpg
+                          format: uri
+                          type: string
+                          example: https://example.com/picture.jpg
+                        - type: 'null'
+                      role:
+                        type: string
+                        enum:
+                        - owner
+                        - admin
+                        - member
+                        description: The user's role in the organization.
+                        examples:
+                        - owner
+                        - admin
+                        - member
+                        example: owner
+                      createdAt:
+                        description: Timestamp of user creation in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      updatedAt:
+                        description: Timestamp of last user update in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                errors:
+                - path: /userId
+                  message: Expected string to match '^US(.*)$'
+                  value: abc123
+                  schema:
+                    type: TemplateLiteral
+                    pattern: ^US(.*)$
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Unauthorized
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User with ID US1234567890 not found
+                docs: https://quo.com/docs
+                title: Not Found
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: We have encountered an unknown error
+                docs: https://quo.com/docs
+                title: Unknown
+                trace: '6897907457496870895'
+  /v1/users:
+    get:
+      tags:
+      - Users
+      summary: List users
+      description: Retrieve a paginated list of users in your Quo workspace.
+      operationId: listUsers_v1
+      parameters:
+      - in: query
+        name: maxResults
+        required: true
+        schema:
+          description: Maximum number of results to return per page.
+          default: 10
+          maximum: 50
+          minimum: 1
+          type: integer
+      - in: query
+        name: pageToken
+        required: false
+        schema:
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - totalItems
+                - nextPageToken
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                      - pictureUrl
+                      - role
+                      - createdAt
+                      - updatedAt
+                      properties:
+                        id:
+                          description: The unique identifier of the user.
+                          examples:
+                          - US123abc
+                          pattern: ^US(.*)$
+                          type: string
+                          example: US123abc
+                        email:
+                          description: The user's email address.
+                          examples:
+                          - johndoe@example.com
+                          format: email
+                          type: string
+                          example: johndoe@example.com
+                        firstName:
+                          anyOf:
+                          - description: The user's first name.
+                            examples:
+                            - John
+                            type: string
+                            example: John
+                          - type: 'null'
+                        lastName:
+                          anyOf:
+                          - description: The user's last name.
+                            examples:
+                            - Doe
+                            type: string
+                            example: Doe
+                          - type: 'null'
+                        pictureUrl:
+                          anyOf:
+                          - description: The user's picture URL.
+                            examples:
+                            - https://example.com/picture.jpg
+                            format: uri
+                            type: string
+                            example: https://example.com/picture.jpg
+                          - type: 'null'
+                        role:
+                          type: string
+                          enum:
+                          - owner
+                          - admin
+                          - member
+                          description: The user's role in the organization.
+                          examples:
+                          - owner
+                          - admin
+                          - member
+                          example: owner
+                        createdAt:
+                          description: Timestamp of user creation in ISO 8601 format.
+                          examples:
+                          - '2022-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2022-01-01T00:00:00Z'
+                        updatedAt:
+                          description: Timestamp of last user update in ISO 8601 format.
+                          examples:
+                          - '2022-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2022-01-01T00:00:00Z'
+                  totalItems:
+                    description: 'Total number of items available. ⚠️ Note: `totalItems` is not accurately returning the total number of items that can be paginated. We are working on fixing this issue.'
+                    type: integer
+                  nextPageToken:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1101500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/users/{userId}:
+    get:
+      tags:
+      - Users
+      summary: Get a user by ID
+      description: Retrieve detailed information about a specific user in your Quo workspace using the user's unique identifier.
+      operationId: getUserById_v1
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          description: The unique identifier of the user being retrieved.
+          examples:
+          - US123abc
+          pattern: ^US(.*)$
+          type: string
+        example: US123abc
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - email
+                    - firstName
+                    - lastName
+                    - pictureUrl
+                    - role
+                    - createdAt
+                    - updatedAt
+                    properties:
+                      id:
+                        description: The unique identifier of the user.
+                        examples:
+                        - US123abc
+                        pattern: ^US(.*)$
+                        type: string
+                        example: US123abc
+                      email:
+                        description: The user's email address.
+                        examples:
+                        - johndoe@example.com
+                        format: email
+                        type: string
+                        example: johndoe@example.com
+                      firstName:
+                        anyOf:
+                        - description: The user's first name.
+                          examples:
+                          - John
+                          type: string
+                          example: John
+                        - type: 'null'
+                      lastName:
+                        anyOf:
+                        - description: The user's last name.
+                          examples:
+                          - Doe
+                          type: string
+                          example: Doe
+                        - type: 'null'
+                      pictureUrl:
+                        anyOf:
+                        - description: The user's picture URL.
+                          examples:
+                          - https://example.com/picture.jpg
+                          format: uri
+                          type: string
+                          example: https://example.com/picture.jpg
+                        - type: 'null'
+                      role:
+                        type: string
+                        enum:
+                        - owner
+                        - admin
+                        - member
+                        description: The user's role in the organization.
+                        examples:
+                        - owner
+                        - admin
+                        - member
+                        example: owner
+                      createdAt:
+                        description: Timestamp of user creation in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      updatedAt:
+                        description: Timestamp of last user update in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1100404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1101500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+components:
+  securitySchemes:
+    apiKey:
+      in: header
+      name: Authorization
+      type: apiKey

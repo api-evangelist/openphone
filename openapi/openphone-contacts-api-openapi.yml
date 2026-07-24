@@ -1,0 +1,4094 @@
+openapi: 3.1.0
+info:
+  title: Quo Public Calls Contacts API
+  version: 1.0.0
+  description: API for connecting with Quo.
+  contact:
+    name: Quo Support
+    email: support@quo.com
+    url: https://support.quo.com/
+  termsOfService: https://www.quo.com/terms
+servers:
+- description: Production server
+  url: https://api.quo.com
+security:
+- apiKey: []
+tags:
+- description: Operations related to contacts
+  name: Contacts
+paths:
+  /contacts:
+    get:
+      tags:
+      - Contacts
+      summary: List contacts
+      description: Get a paginated list of contacts.
+      operationId: listContacts
+      parameters:
+      - in: query
+        name: externalIds
+        required: false
+        schema:
+          anyOf:
+          - description: Filter by external IDs
+            maxItems: 50
+            type: array
+            items:
+              type: string
+          - type: 'null'
+      - in: query
+        name: sources
+        required: false
+        schema:
+          anyOf:
+          - description: Filter by source labels
+            maxItems: 50
+            type: array
+            items:
+              type: string
+          - type: 'null'
+      - in: query
+        name: limit
+        required: false
+        schema:
+          anyOf:
+          - minimum: 1
+            maximum: 50
+            default: 10
+            description: Page size
+            type: integer
+          - type: 'null'
+      - in: query
+        name: after
+        required: false
+        schema:
+          anyOf:
+          - examples:
+            - eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+            type: string
+          - type: 'null'
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - nextCursor
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - createdAt
+                      - updatedAt
+                      - actorId
+                      properties:
+                        id:
+                          description: The ID of the contact.
+                          examples:
+                          - 6a145ff26212a192852c856e
+                          pattern: ^(.*)$
+                          type: string
+                          example: 6a145ff26212a192852c856e
+                        externalId:
+                          anyOf:
+                          - description: The external ID of the contact.
+                            examples:
+                            - '1234567890'
+                            type: string
+                            example: '1234567890'
+                          - type: 'null'
+                        source:
+                          anyOf:
+                          - description: The source of the contact.
+                            examples:
+                            - public-api
+                            type: string
+                            example: public-api
+                          - type: 'null'
+                        sourceUrl:
+                          anyOf:
+                          - description: A link to the contact in the source system.
+                            format: uri
+                            examples:
+                            - https://example.com/contacts/001
+                            minLength: 1
+                            maxLength: 200
+                            type: string
+                            example: https://example.com/contacts/001
+                          - type: 'null'
+                        firstName:
+                          anyOf:
+                          - description: The first name of the contact.
+                            examples:
+                            - John
+                            type: string
+                            example: John
+                          - type: 'null'
+                        lastName:
+                          anyOf:
+                          - description: The last name of the contact.
+                            examples:
+                            - Doe
+                            type: string
+                            example: Doe
+                          - type: 'null'
+                        company:
+                          anyOf:
+                          - description: The company of the contact.
+                            examples:
+                            - Quo
+                            type: string
+                            example: Quo
+                          - type: 'null'
+                        role:
+                          anyOf:
+                          - description: The role of the contact.
+                            examples:
+                            - admin
+                            type: string
+                            example: admin
+                          - type: 'null'
+                        createdAt:
+                          description: The timestamp of the contact creation.
+                          examples:
+                          - '2021-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2021-01-01T00:00:00Z'
+                        updatedAt:
+                          description: The timestamp of the contact update.
+                          examples:
+                          - '2021-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2021-01-01T00:00:00Z'
+                        actorId:
+                          description: The actor ID of the contact.
+                          examples:
+                          - US123abc
+                          example: US123abc
+                          anyOf:
+                          - pattern: ^US(.*)$
+                            type: string
+                          - pattern: ^SYU(.*)$
+                            type: string
+                  nextCursor:
+                    description: Cursor for the next page, or null when there are no more pages.
+                    examples:
+                    - eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+                    example: eyJsYXN0SWQiOiJVU211a09NaXBhIn0
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                trace: '6897907457496870895'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The contact was not found
+                docs: https://quo.com/docs
+                title: Not Found
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is unauthorized to perform this action
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: An unknown error has occurred
+                docs: https://quo.com/docs
+                title: Unknown Error
+                trace: '6897907457496870895'
+  /contacts/{contactId}:
+    get:
+      tags:
+      - Contacts
+      summary: Get a contact by ID
+      description: Retrieve detailed information about a specific contact in your Quo workspace using the contact's unique identifier.
+      operationId: getContactById
+      parameters:
+      - in: path
+        name: contactId
+        required: true
+        schema:
+          description: The unique identifier of the contact being retrieved.
+          examples:
+          - 6a145ff26212a192852c856e
+          pattern: ^(.*)$
+          type: string
+        example: 6a145ff26212a192852c856e
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - createdAt
+                    - updatedAt
+                    - actorId
+                    properties:
+                      id:
+                        description: The ID of the contact.
+                        examples:
+                        - 6a145ff26212a192852c856e
+                        pattern: ^(.*)$
+                        type: string
+                        example: 6a145ff26212a192852c856e
+                      externalId:
+                        anyOf:
+                        - description: The external ID of the contact.
+                          examples:
+                          - '1234567890'
+                          type: string
+                          example: '1234567890'
+                        - type: 'null'
+                      source:
+                        anyOf:
+                        - description: The source of the contact.
+                          examples:
+                          - public-api
+                          type: string
+                          example: public-api
+                        - type: 'null'
+                      sourceUrl:
+                        anyOf:
+                        - description: A link to the contact in the source system.
+                          format: uri
+                          examples:
+                          - https://example.com/contacts/001
+                          minLength: 1
+                          maxLength: 200
+                          type: string
+                          example: https://example.com/contacts/001
+                        - type: 'null'
+                      firstName:
+                        anyOf:
+                        - description: The first name of the contact.
+                          examples:
+                          - John
+                          type: string
+                          example: John
+                        - type: 'null'
+                      lastName:
+                        anyOf:
+                        - description: The last name of the contact.
+                          examples:
+                          - Doe
+                          type: string
+                          example: Doe
+                        - type: 'null'
+                      company:
+                        anyOf:
+                        - description: The company of the contact.
+                          examples:
+                          - Quo
+                          type: string
+                          example: Quo
+                        - type: 'null'
+                      role:
+                        anyOf:
+                        - description: The role of the contact.
+                          examples:
+                          - admin
+                          type: string
+                          example: admin
+                        - type: 'null'
+                      createdAt:
+                        description: The timestamp of the contact creation.
+                        examples:
+                        - '2021-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2021-01-01T00:00:00Z'
+                      updatedAt:
+                        description: The timestamp of the contact update.
+                        examples:
+                        - '2021-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2021-01-01T00:00:00Z'
+                      actorId:
+                        description: The actor ID of the contact.
+                        examples:
+                        - US123abc
+                        example: US123abc
+                        anyOf:
+                        - pattern: ^US(.*)$
+                          type: string
+                        - pattern: ^SYU(.*)$
+                          type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                trace: '6897907457496870895'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The contact was not found
+                docs: https://quo.com/docs
+                title: Not Found
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is unauthorized to perform this action
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: An unknown error has occurred
+                docs: https://quo.com/docs
+                title: Unknown Error
+                trace: '6897907457496870895'
+  /v1/contacts:
+    post:
+      tags:
+      - Contacts
+      summary: Create a contact
+      description: Create a contact for a workspace.
+      operationId: createContact_v1
+      parameters: []
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - defaultFields
+              properties:
+                defaultFields:
+                  type: object
+                  required:
+                  - firstName
+                  properties:
+                    company:
+                      anyOf:
+                      - description: The contact's company name.
+                        examples:
+                        - Quo
+                        type: string
+                        example: Quo
+                      - type: 'null'
+                    emails:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - name
+                        - value
+                        properties:
+                          name:
+                            description: The name for the contact's email address.
+                            examples:
+                            - company email
+                            type: string
+                            example: company email
+                          value:
+                            anyOf:
+                            - description: The contact's email address.
+                              examples:
+                              - abc@example.com
+                              type: string
+                              example: abc@example.com
+                            - type: 'null'
+                    firstName:
+                      anyOf:
+                      - description: The contact's first name.
+                        examples:
+                        - John
+                        type: string
+                        example: John
+                      - type: 'null'
+                    lastName:
+                      anyOf:
+                      - description: The contact's last name.
+                        examples:
+                        - Doe
+                        type: string
+                        example: Doe
+                      - type: 'null'
+                    phoneNumbers:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - name
+                        - value
+                        properties:
+                          name:
+                            description: The name of the contact's phone number.
+                            examples:
+                            - company phone
+                            type: string
+                            example: company phone
+                          value:
+                            anyOf:
+                            - description: The contact's phone number.
+                              examples:
+                              - '+12345678901'
+                              type: string
+                              example: '+12345678901'
+                            - type: 'null'
+                    role:
+                      anyOf:
+                      - description: The contact's role.
+                        examples:
+                        - Sales
+                        type: string
+                        example: Sales
+                      - type: 'null'
+                customFields:
+                  type: array
+                  items:
+                    allOf:
+                    - type: object
+                      properties:
+                        key:
+                          description: The identifying key for contact custom field.
+                          examples:
+                          - inbound-lead
+                          type: string
+                          example: inbound-lead
+                    - anyOf:
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the multi select type custom field.
+                            examples:
+                            - - option1
+                              - option2
+                            example:
+                            - option1
+                            - option2
+                            anyOf:
+                            - type: array
+                              items:
+                                type: string
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the address, string, or url type custom field.
+                            examples:
+                            - 123 Main St
+                            example: 123 Main St
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the boolean type custom field.
+                            examples:
+                            - 'false'
+                            example: 'false'
+                            anyOf:
+                            - type: boolean
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the date type custom fields.
+                            examples:
+                            - '2024-09-11T04:00:00.000Z'
+                            example: '2024-09-11T04:00:00.000Z'
+                            anyOf:
+                            - format: date-time
+                              type: string
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value for the number custom field.
+                            examples:
+                            - '424242'
+                            example: '424242'
+                            anyOf:
+                            - type: number
+                            - type: 'null'
+                createdByUserId:
+                  description: The unique identifier of the user who created the contact.
+                  examples:
+                  - US123abc
+                  pattern: ^US(.*)$
+                  type: string
+                  example: US123abc
+                source:
+                  description: 'The contact''s source. Defaults to `null` for contacts created in the UI. Defaults to `public-api` for contacts created via the public API. Cannot be one of the following reserved words: `openphone`, `device`, `csv`, `zapier`, `google-people`, `other` or start with one of the following reserved prefixes: `openphone`, `csv`.'
+                  examples:
+                  - public-api
+                  - custom-hubspot
+                  - google-calendar
+                  default: public-api
+                  minLength: 1
+                  maxLength: 72
+                  type: string
+                  example: public-api
+                sourceUrl:
+                  description: A link to the contact in the source system.
+                  format: uri
+                  examples:
+                  - https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                  minLength: 1
+                  maxLength: 200
+                  type: string
+                  example: https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                externalId:
+                  anyOf:
+                  - description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+                    examples:
+                    - 664d0db69fcac7cf2e6ec
+                    minLength: 1
+                    maxLength: 75
+                    type: string
+                    example: 664d0db69fcac7cf2e6ec
+                  - type: 'null'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - externalId
+                    - source
+                    - sourceUrl
+                    - defaultFields
+                    - customFields
+                    - createdAt
+                    - updatedAt
+                    - createdByUserId
+                    properties:
+                      id:
+                        description: The unique identifier of the contact.
+                        examples:
+                        - 664d0db69fcac7cf2e6ec
+                        pattern: ^(.*)$
+                        type: string
+                        example: 664d0db69fcac7cf2e6ec
+                      externalId:
+                        anyOf:
+                        - description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+                          examples:
+                          - 664d0db69fcac7cf2e6ec
+                          minLength: 1
+                          maxLength: 75
+                          type: string
+                          example: 664d0db69fcac7cf2e6ec
+                        - type: 'null'
+                      source:
+                        anyOf:
+                        - description: Indicates how the contact was created or where it originated from.
+                          examples:
+                          - public-api
+                          minLength: 1
+                          maxLength: 75
+                          type: string
+                          example: public-api
+                        - type: 'null'
+                      sourceUrl:
+                        anyOf:
+                        - description: A link to the contact in the source system.
+                          format: uri
+                          examples:
+                          - https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                          minLength: 1
+                          maxLength: 200
+                          type: string
+                          example: https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                        - type: 'null'
+                      defaultFields:
+                        type: object
+                        required:
+                        - company
+                        - emails
+                        - firstName
+                        - lastName
+                        - phoneNumbers
+                        - role
+                        properties:
+                          company:
+                            anyOf:
+                            - description: The contact's company name.
+                              examples:
+                              - Quo
+                              type: string
+                              example: Quo
+                            - type: 'null'
+                          emails:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - name
+                              - value
+                              properties:
+                                name:
+                                  description: The name for the contact's email address.
+                                  examples:
+                                  - company email
+                                  type: string
+                                  example: company email
+                                value:
+                                  anyOf:
+                                  - description: The contact's email address.
+                                    examples:
+                                    - abc@example.com
+                                    type: string
+                                    example: abc@example.com
+                                  - type: 'null'
+                                id:
+                                  description: The unique identifier for the contact email field.
+                                  examples:
+                                  - acb123
+                                  type: string
+                                  example: acb123
+                          firstName:
+                            anyOf:
+                            - description: The contact's first name.
+                              examples:
+                              - John
+                              type: string
+                              example: John
+                            - type: 'null'
+                          lastName:
+                            anyOf:
+                            - description: The contact's last name.
+                              examples:
+                              - Doe
+                              type: string
+                              example: Doe
+                            - type: 'null'
+                          phoneNumbers:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - name
+                              - value
+                              properties:
+                                name:
+                                  description: The name of the contact's phone number.
+                                  examples:
+                                  - company phone
+                                  type: string
+                                  example: company phone
+                                value:
+                                  anyOf:
+                                  - description: The contact's phone number.
+                                    examples:
+                                    - '+12345678901'
+                                    type: string
+                                    example: '+12345678901'
+                                  - type: 'null'
+                                id:
+                                  description: The unique identifier of the contact phone number field.
+                                  examples:
+                                  - acb123
+                                  type: string
+                                  example: acb123
+                          role:
+                            anyOf:
+                            - description: The contact's role.
+                              examples:
+                              - Sales
+                              type: string
+                              example: Sales
+                            - type: 'null'
+                      customFields:
+                        type: array
+                        items:
+                          allOf:
+                          - type: object
+                            required:
+                            - name
+                            properties:
+                              name:
+                                description: The name of the custom contact field. This name is set by users in the Quo interface when the custom field is created.
+                                examples:
+                                - Inbound Lead
+                                type: string
+                                example: Inbound Lead
+                              key:
+                                description: The identifying key for contact custom field.
+                                examples:
+                                - inbound-lead
+                                type: string
+                                example: inbound-lead
+                              id:
+                                description: The unique identifier for the contact custom field.
+                                examples:
+                                - 66d0d87d534de8fd1c433cec3
+                                type: string
+                                example: 66d0d87d534de8fd1c433cec3
+                          - anyOf:
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - multi-select
+                                value:
+                                  description: Value defined for the multi select type custom field.
+                                  examples:
+                                  - - option1
+                                    - option2
+                                  example:
+                                  - option1
+                                  - option2
+                                  anyOf:
+                                  - type: array
+                                    items:
+                                      type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - address
+                                  - string
+                                  - url
+                                value:
+                                  description: Value defined for the address, string, or url type custom field.
+                                  examples:
+                                  - 123 Main St
+                                  example: 123 Main St
+                                  anyOf:
+                                  - type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - boolean
+                                value:
+                                  description: Value defined for the boolean type custom field.
+                                  examples:
+                                  - 'false'
+                                  example: 'false'
+                                  anyOf:
+                                  - type: boolean
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - date
+                                value:
+                                  description: Value defined for the date type custom fields.
+                                  examples:
+                                  - '2024-09-11T04:00:00.000Z'
+                                  example: '2024-09-11T04:00:00.000Z'
+                                  anyOf:
+                                  - format: date-time
+                                    type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - number
+                                value:
+                                  description: Value for the number custom field.
+                                  examples:
+                                  - '424242'
+                                  example: '424242'
+                                  anyOf:
+                                  - type: number
+                                  - type: 'null'
+                      createdAt:
+                        description: Timestamp of contact creation in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      updatedAt:
+                        description: Timestamp of last contact update in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      createdByUserId:
+                        description: The unique identifier of the user who created the contact.
+                        examples:
+                        - US123abc
+                        pattern: ^US(.*)$
+                        type: string
+                        example: US123abc
+        '400':
+          description: Invalid Custom Field Item
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801400
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Invalid Custom Field Item
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Invalid Custom Field Item
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800401
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801403
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800404
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800409
+                    type: string
+                  status:
+                    const: 409
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Conflict
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801500
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+    get:
+      tags:
+      - Contacts
+      summary: List contacts
+      description: Retrieve a paginated list of contacts. You can optionally filter the results by providing external IDs and sources. When no external IDs are provided, all contacts for the organization are returned.
+      operationId: listContacts_v1
+      parameters:
+      - in: query
+        name: externalIds
+        required: false
+        schema:
+          description: Optional list of unique identifiers from an external system used to retrieve specific contacts. When provided, the result set is limited to contacts associated with the provided `externalIds`. These IDs must match those supplied during contact creation via the "Create Contacts" endpoint. When omitted, returns all contacts for the organization. Use this parameter to cross-reference and fetch contacts linked to external systems.
+          type: array
+          items:
+            description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+            examples:
+            - 664d0db69fcac7cf2e6ec
+            minLength: 1
+            maxLength: 75
+            type: string
+      - in: query
+        name: sources
+        required: false
+        schema:
+          type: array
+          items:
+            description: Indicates how the contact was created or where it originated from.
+            examples:
+            - public-api
+            minLength: 1
+            maxLength: 75
+            type: string
+      - in: query
+        name: maxResults
+        required: true
+        schema:
+          description: Maximum number of results to return per page.
+          default: 10
+          maximum: 50
+          minimum: 1
+          type: integer
+      - in: query
+        name: pageToken
+        required: false
+        schema:
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - totalItems
+                - nextPageToken
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - externalId
+                      - source
+                      - sourceUrl
+                      - defaultFields
+                      - customFields
+                      - createdAt
+                      - updatedAt
+                      - createdByUserId
+                      properties:
+                        id:
+                          description: The unique identifier of the contact.
+                          examples:
+                          - 664d0db69fcac7cf2e6ec
+                          pattern: ^(.*)$
+                          type: string
+                          example: 664d0db69fcac7cf2e6ec
+                        externalId:
+                          anyOf:
+                          - description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+                            examples:
+                            - 664d0db69fcac7cf2e6ec
+                            minLength: 1
+                            maxLength: 75
+                            type: string
+                            example: 664d0db69fcac7cf2e6ec
+                          - type: 'null'
+                        source:
+                          anyOf:
+                          - description: Indicates how the contact was created or where it originated from.
+                            examples:
+                            - public-api
+                            minLength: 1
+                            maxLength: 75
+                            type: string
+                            example: public-api
+                          - type: 'null'
+                        sourceUrl:
+                          anyOf:
+                          - description: A link to the contact in the source system.
+                            format: uri
+                            examples:
+                            - https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                            minLength: 1
+                            maxLength: 200
+                            type: string
+                            example: https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                          - type: 'null'
+                        defaultFields:
+                          type: object
+                          required:
+                          - company
+                          - emails
+                          - firstName
+                          - lastName
+                          - phoneNumbers
+                          - role
+                          properties:
+                            company:
+                              anyOf:
+                              - description: The contact's company name.
+                                examples:
+                                - Quo
+                                type: string
+                                example: Quo
+                              - type: 'null'
+                            emails:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - name
+                                - value
+                                properties:
+                                  name:
+                                    description: The name for the contact's email address.
+                                    examples:
+                                    - company email
+                                    type: string
+                                    example: company email
+                                  value:
+                                    anyOf:
+                                    - description: The contact's email address.
+                                      examples:
+                                      - abc@example.com
+                                      type: string
+                                      example: abc@example.com
+                                    - type: 'null'
+                                  id:
+                                    description: The unique identifier for the contact email field.
+                                    examples:
+                                    - acb123
+                                    type: string
+                                    example: acb123
+                            firstName:
+                              anyOf:
+                              - description: The contact's first name.
+                                examples:
+                                - John
+                                type: string
+                                example: John
+                              - type: 'null'
+                            lastName:
+                              anyOf:
+                              - description: The contact's last name.
+                                examples:
+                                - Doe
+                                type: string
+                                example: Doe
+                              - type: 'null'
+                            phoneNumbers:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - name
+                                - value
+                                properties:
+                                  name:
+                                    description: The name of the contact's phone number.
+                                    examples:
+                                    - company phone
+                                    type: string
+                                    example: company phone
+                                  value:
+                                    anyOf:
+                                    - description: The contact's phone number.
+                                      examples:
+                                      - '+12345678901'
+                                      type: string
+                                      example: '+12345678901'
+                                    - type: 'null'
+                                  id:
+                                    description: The unique identifier of the contact phone number field.
+                                    examples:
+                                    - acb123
+                                    type: string
+                                    example: acb123
+                            role:
+                              anyOf:
+                              - description: The contact's role.
+                                examples:
+                                - Sales
+                                type: string
+                                example: Sales
+                              - type: 'null'
+                        customFields:
+                          type: array
+                          items:
+                            allOf:
+                            - type: object
+                              required:
+                              - name
+                              properties:
+                                name:
+                                  description: The name of the custom contact field. This name is set by users in the Quo interface when the custom field is created.
+                                  examples:
+                                  - Inbound Lead
+                                  type: string
+                                  example: Inbound Lead
+                                key:
+                                  description: The identifying key for contact custom field.
+                                  examples:
+                                  - inbound-lead
+                                  type: string
+                                  example: inbound-lead
+                                id:
+                                  description: The unique identifier for the contact custom field.
+                                  examples:
+                                  - 66d0d87d534de8fd1c433cec3
+                                  type: string
+                                  example: 66d0d87d534de8fd1c433cec3
+                            - anyOf:
+                              - type: object
+                                required:
+                                - type
+                                - value
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                    - multi-select
+                                  value:
+                                    description: Value defined for the multi select type custom field.
+                                    examples:
+                                    - - option1
+                                      - option2
+                                    example:
+                                    - option1
+                                    - option2
+                                    anyOf:
+                                    - type: array
+                                      items:
+                                        type: string
+                                    - type: 'null'
+                              - type: object
+                                required:
+                                - type
+                                - value
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                    - address
+                                    - string
+                                    - url
+                                  value:
+                                    description: Value defined for the address, string, or url type custom field.
+                                    examples:
+                                    - 123 Main St
+                                    example: 123 Main St
+                                    anyOf:
+                                    - type: string
+                                    - type: 'null'
+                              - type: object
+                                required:
+                                - type
+                                - value
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                    - boolean
+                                  value:
+                                    description: Value defined for the boolean type custom field.
+                                    examples:
+                                    - 'false'
+                                    example: 'false'
+                                    anyOf:
+                                    - type: boolean
+                                    - type: 'null'
+                              - type: object
+                                required:
+                                - type
+                                - value
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                    - date
+                                  value:
+                                    description: Value defined for the date type custom fields.
+                                    examples:
+                                    - '2024-09-11T04:00:00.000Z'
+                                    example: '2024-09-11T04:00:00.000Z'
+                                    anyOf:
+                                    - format: date-time
+                                      type: string
+                                    - type: 'null'
+                              - type: object
+                                required:
+                                - type
+                                - value
+                                properties:
+                                  type:
+                                    type: string
+                                    enum:
+                                    - number
+                                  value:
+                                    description: Value for the number custom field.
+                                    examples:
+                                    - '424242'
+                                    example: '424242'
+                                    anyOf:
+                                    - type: number
+                                    - type: 'null'
+                        createdAt:
+                          description: Timestamp of contact creation in ISO 8601 format.
+                          examples:
+                          - '2022-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2022-01-01T00:00:00Z'
+                        updatedAt:
+                          description: Timestamp of last contact update in ISO 8601 format.
+                          examples:
+                          - '2022-01-01T00:00:00Z'
+                          format: date-time
+                          type: string
+                          example: '2022-01-01T00:00:00Z'
+                        createdByUserId:
+                          description: The unique identifier of the user who created the contact.
+                          examples:
+                          - US123abc
+                          pattern: ^US(.*)$
+                          type: string
+                          example: US123abc
+                  totalItems:
+                    description: 'Total number of items available. ⚠️ Note: `totalItems` is not accurately returning the total number of items that can be paginated. We are working on fixing this issue.'
+                    type: integer
+                  nextPageToken:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+        '400':
+          description: Invalid Custom Field Item
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801400
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Invalid Custom Field Item
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Invalid Custom Field Item
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800401
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801403
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800404
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800409
+                    type: string
+                  status:
+                    const: 409
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Conflict
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801500
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/contacts/{id}:
+    get:
+      tags:
+      - Contacts
+      summary: Get a contact by ID
+      description: Retrieve detailed information about a specific contact in your Quo workspace using the contact's unique identifier.
+      operationId: getContactById_v1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          description: The unique identifier of the contact.
+          examples:
+          - 66d0d87e8dc1211467372303
+          pattern: ^(.*)$
+          type: string
+        example: 66d0d87e8dc1211467372303
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - externalId
+                    - source
+                    - sourceUrl
+                    - defaultFields
+                    - customFields
+                    - createdAt
+                    - updatedAt
+                    - createdByUserId
+                    properties:
+                      id:
+                        description: The unique identifier of the contact.
+                        examples:
+                        - 664d0db69fcac7cf2e6ec
+                        pattern: ^(.*)$
+                        type: string
+                        example: 664d0db69fcac7cf2e6ec
+                      externalId:
+                        anyOf:
+                        - description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+                          examples:
+                          - 664d0db69fcac7cf2e6ec
+                          minLength: 1
+                          maxLength: 75
+                          type: string
+                          example: 664d0db69fcac7cf2e6ec
+                        - type: 'null'
+                      source:
+                        anyOf:
+                        - description: Indicates how the contact was created or where it originated from.
+                          examples:
+                          - public-api
+                          minLength: 1
+                          maxLength: 75
+                          type: string
+                          example: public-api
+                        - type: 'null'
+                      sourceUrl:
+                        anyOf:
+                        - description: A link to the contact in the source system.
+                          format: uri
+                          examples:
+                          - https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                          minLength: 1
+                          maxLength: 200
+                          type: string
+                          example: https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                        - type: 'null'
+                      defaultFields:
+                        type: object
+                        required:
+                        - company
+                        - emails
+                        - firstName
+                        - lastName
+                        - phoneNumbers
+                        - role
+                        properties:
+                          company:
+                            anyOf:
+                            - description: The contact's company name.
+                              examples:
+                              - Quo
+                              type: string
+                              example: Quo
+                            - type: 'null'
+                          emails:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - name
+                              - value
+                              properties:
+                                name:
+                                  description: The name for the contact's email address.
+                                  examples:
+                                  - company email
+                                  type: string
+                                  example: company email
+                                value:
+                                  anyOf:
+                                  - description: The contact's email address.
+                                    examples:
+                                    - abc@example.com
+                                    type: string
+                                    example: abc@example.com
+                                  - type: 'null'
+                                id:
+                                  description: The unique identifier for the contact email field.
+                                  examples:
+                                  - acb123
+                                  type: string
+                                  example: acb123
+                          firstName:
+                            anyOf:
+                            - description: The contact's first name.
+                              examples:
+                              - John
+                              type: string
+                              example: John
+                            - type: 'null'
+                          lastName:
+                            anyOf:
+                            - description: The contact's last name.
+                              examples:
+                              - Doe
+                              type: string
+                              example: Doe
+                            - type: 'null'
+                          phoneNumbers:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - name
+                              - value
+                              properties:
+                                name:
+                                  description: The name of the contact's phone number.
+                                  examples:
+                                  - company phone
+                                  type: string
+                                  example: company phone
+                                value:
+                                  anyOf:
+                                  - description: The contact's phone number.
+                                    examples:
+                                    - '+12345678901'
+                                    type: string
+                                    example: '+12345678901'
+                                  - type: 'null'
+                                id:
+                                  description: The unique identifier of the contact phone number field.
+                                  examples:
+                                  - acb123
+                                  type: string
+                                  example: acb123
+                          role:
+                            anyOf:
+                            - description: The contact's role.
+                              examples:
+                              - Sales
+                              type: string
+                              example: Sales
+                            - type: 'null'
+                      customFields:
+                        type: array
+                        items:
+                          allOf:
+                          - type: object
+                            required:
+                            - name
+                            properties:
+                              name:
+                                description: The name of the custom contact field. This name is set by users in the Quo interface when the custom field is created.
+                                examples:
+                                - Inbound Lead
+                                type: string
+                                example: Inbound Lead
+                              key:
+                                description: The identifying key for contact custom field.
+                                examples:
+                                - inbound-lead
+                                type: string
+                                example: inbound-lead
+                              id:
+                                description: The unique identifier for the contact custom field.
+                                examples:
+                                - 66d0d87d534de8fd1c433cec3
+                                type: string
+                                example: 66d0d87d534de8fd1c433cec3
+                          - anyOf:
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - multi-select
+                                value:
+                                  description: Value defined for the multi select type custom field.
+                                  examples:
+                                  - - option1
+                                    - option2
+                                  example:
+                                  - option1
+                                  - option2
+                                  anyOf:
+                                  - type: array
+                                    items:
+                                      type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - address
+                                  - string
+                                  - url
+                                value:
+                                  description: Value defined for the address, string, or url type custom field.
+                                  examples:
+                                  - 123 Main St
+                                  example: 123 Main St
+                                  anyOf:
+                                  - type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - boolean
+                                value:
+                                  description: Value defined for the boolean type custom field.
+                                  examples:
+                                  - 'false'
+                                  example: 'false'
+                                  anyOf:
+                                  - type: boolean
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - date
+                                value:
+                                  description: Value defined for the date type custom fields.
+                                  examples:
+                                  - '2024-09-11T04:00:00.000Z'
+                                  example: '2024-09-11T04:00:00.000Z'
+                                  anyOf:
+                                  - format: date-time
+                                    type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - number
+                                value:
+                                  description: Value for the number custom field.
+                                  examples:
+                                  - '424242'
+                                  example: '424242'
+                                  anyOf:
+                                  - type: number
+                                  - type: 'null'
+                      createdAt:
+                        description: Timestamp of contact creation in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      updatedAt:
+                        description: Timestamp of last contact update in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      createdByUserId:
+                        description: The unique identifier of the user who created the contact.
+                        examples:
+                        - US123abc
+                        pattern: ^US(.*)$
+                        type: string
+                        example: US123abc
+        '400':
+          description: Invalid Custom Field Item
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801400
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Invalid Custom Field Item
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Invalid Custom Field Item
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800401
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801403
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800404
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800409
+                    type: string
+                  status:
+                    const: 409
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Conflict
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801500
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+    patch:
+      tags:
+      - Contacts
+      summary: Update a contact by ID
+      description: Modify an existing contact in your Quo workspace using the contact's unique identifier.
+      operationId: updateContactById_v1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          description: The unique identifier of the contact.
+          examples:
+          - 66d0d87e8dc1211467372303
+          pattern: ^(.*)$
+          type: string
+        example: 66d0d87e8dc1211467372303
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                externalId:
+                  anyOf:
+                  - description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+                    examples:
+                    - 664d0db69fcac7cf2e6ec
+                    minLength: 1
+                    maxLength: 75
+                    type: string
+                    example: 664d0db69fcac7cf2e6ec
+                  - type: 'null'
+                source:
+                  anyOf:
+                  - description: Indicates how the contact was created or where it originated from.
+                    examples:
+                    - public-api
+                    minLength: 1
+                    maxLength: 75
+                    type: string
+                    example: public-api
+                  - type: 'null'
+                sourceUrl:
+                  anyOf:
+                  - description: A link to the contact in the source system.
+                    format: uri
+                    examples:
+                    - https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                    minLength: 1
+                    maxLength: 200
+                    type: string
+                    example: https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                  - type: 'null'
+                defaultFields:
+                  type: object
+                  properties:
+                    company:
+                      anyOf:
+                      - description: The contact's company name.
+                        examples:
+                        - Quo
+                        type: string
+                        example: Quo
+                      - type: 'null'
+                    emails:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - name
+                        - value
+                        properties:
+                          name:
+                            description: The name for the contact's email address.
+                            examples:
+                            - company email
+                            type: string
+                            example: company email
+                          value:
+                            anyOf:
+                            - description: The contact's email address. If set to null during a patch operation, it will remove the email item from the contact.
+                              examples:
+                              - info@openphone.com
+                              type: string
+                              example: info@openphone.com
+                            - type: 'null'
+                          id:
+                            description: The unique identifier for the contact email field.
+                            examples:
+                            - acb123
+                            type: string
+                            example: acb123
+                    firstName:
+                      anyOf:
+                      - description: The contact's first name.
+                        examples:
+                        - John
+                        type: string
+                        example: John
+                      - type: 'null'
+                    lastName:
+                      anyOf:
+                      - description: The contact's last name.
+                        examples:
+                        - Doe
+                        type: string
+                        example: Doe
+                      - type: 'null'
+                    phoneNumbers:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - name
+                        - value
+                        properties:
+                          name:
+                            description: The name of the contact's phone number.
+                            examples:
+                            - company phone
+                            type: string
+                            example: company phone
+                          value:
+                            anyOf:
+                            - description: The contact's phone number. If set to null during a patch operation, it will remove the phone number item from the contact.
+                              examples:
+                              - '+15555555555'
+                              type: string
+                              example: '+15555555555'
+                            - type: 'null'
+                          id:
+                            description: The unique identifier of the contact phone number field.
+                            examples:
+                            - acb123
+                            type: string
+                            example: acb123
+                    role:
+                      anyOf:
+                      - description: The contact's role.
+                        examples:
+                        - Sales
+                        type: string
+                        example: Sales
+                      - type: 'null'
+                customFields:
+                  type: array
+                  items:
+                    allOf:
+                    - type: object
+                      properties:
+                        key:
+                          description: The identifying key for contact custom field.
+                          examples:
+                          - inbound-lead
+                          type: string
+                          example: inbound-lead
+                        id:
+                          description: The unique identifier for the contact custom field.
+                          examples:
+                          - 66d0d87d534de8fd1c433cec3
+                          type: string
+                          example: 66d0d87d534de8fd1c433cec3
+                    - anyOf:
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the multi select type custom field.
+                            examples:
+                            - - option1
+                              - option2
+                            example:
+                            - option1
+                            - option2
+                            anyOf:
+                            - type: array
+                              items:
+                                type: string
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the address, string, or url type custom field.
+                            examples:
+                            - 123 Main St
+                            example: 123 Main St
+                            anyOf:
+                            - type: string
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the boolean type custom field.
+                            examples:
+                            - 'false'
+                            example: 'false'
+                            anyOf:
+                            - type: boolean
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value defined for the date type custom fields.
+                            examples:
+                            - '2024-09-11T04:00:00.000Z'
+                            example: '2024-09-11T04:00:00.000Z'
+                            anyOf:
+                            - format: date-time
+                              type: string
+                            - type: 'null'
+                      - type: object
+                        required:
+                        - value
+                        properties:
+                          value:
+                            description: Value for the number custom field.
+                            examples:
+                            - '424242'
+                            example: '424242'
+                            anyOf:
+                            - type: number
+                            - type: 'null'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - externalId
+                    - source
+                    - sourceUrl
+                    - defaultFields
+                    - customFields
+                    - createdAt
+                    - updatedAt
+                    - createdByUserId
+                    properties:
+                      id:
+                        description: The unique identifier of the contact.
+                        examples:
+                        - 664d0db69fcac7cf2e6ec
+                        pattern: ^(.*)$
+                        type: string
+                        example: 664d0db69fcac7cf2e6ec
+                      externalId:
+                        anyOf:
+                        - description: A unique identifier from an external system that can optionally be supplied when creating a contact. This ID is used to associate the contact with records in other systems and is required for retrieving the contact later via the "List Contacts" endpoint. Ensure the `externalId` is unique and consistent across systems for accurate cross-referencing.
+                          examples:
+                          - 664d0db69fcac7cf2e6ec
+                          minLength: 1
+                          maxLength: 75
+                          type: string
+                          example: 664d0db69fcac7cf2e6ec
+                        - type: 'null'
+                      source:
+                        anyOf:
+                        - description: Indicates how the contact was created or where it originated from.
+                          examples:
+                          - public-api
+                          minLength: 1
+                          maxLength: 75
+                          type: string
+                          example: public-api
+                        - type: 'null'
+                      sourceUrl:
+                        anyOf:
+                        - description: A link to the contact in the source system.
+                          format: uri
+                          examples:
+                          - https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                          minLength: 1
+                          maxLength: 200
+                          type: string
+                          example: https://openphone.co/contacts/664d0db69fcac7cf2e6ec
+                        - type: 'null'
+                      defaultFields:
+                        type: object
+                        required:
+                        - company
+                        - emails
+                        - firstName
+                        - lastName
+                        - phoneNumbers
+                        - role
+                        properties:
+                          company:
+                            anyOf:
+                            - description: The contact's company name.
+                              examples:
+                              - Quo
+                              type: string
+                              example: Quo
+                            - type: 'null'
+                          emails:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - name
+                              - value
+                              properties:
+                                name:
+                                  description: The name for the contact's email address.
+                                  examples:
+                                  - company email
+                                  type: string
+                                  example: company email
+                                value:
+                                  anyOf:
+                                  - description: The contact's email address.
+                                    examples:
+                                    - abc@example.com
+                                    type: string
+                                    example: abc@example.com
+                                  - type: 'null'
+                                id:
+                                  description: The unique identifier for the contact email field.
+                                  examples:
+                                  - acb123
+                                  type: string
+                                  example: acb123
+                          firstName:
+                            anyOf:
+                            - description: The contact's first name.
+                              examples:
+                              - John
+                              type: string
+                              example: John
+                            - type: 'null'
+                          lastName:
+                            anyOf:
+                            - description: The contact's last name.
+                              examples:
+                              - Doe
+                              type: string
+                              example: Doe
+                            - type: 'null'
+                          phoneNumbers:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - name
+                              - value
+                              properties:
+                                name:
+                                  description: The name of the contact's phone number.
+                                  examples:
+                                  - company phone
+                                  type: string
+                                  example: company phone
+                                value:
+                                  anyOf:
+                                  - description: The contact's phone number.
+                                    examples:
+                                    - '+12345678901'
+                                    type: string
+                                    example: '+12345678901'
+                                  - type: 'null'
+                                id:
+                                  description: The unique identifier of the contact phone number field.
+                                  examples:
+                                  - acb123
+                                  type: string
+                                  example: acb123
+                          role:
+                            anyOf:
+                            - description: The contact's role.
+                              examples:
+                              - Sales
+                              type: string
+                              example: Sales
+                            - type: 'null'
+                      customFields:
+                        type: array
+                        items:
+                          allOf:
+                          - type: object
+                            required:
+                            - name
+                            properties:
+                              name:
+                                description: The name of the custom contact field. This name is set by users in the Quo interface when the custom field is created.
+                                examples:
+                                - Inbound Lead
+                                type: string
+                                example: Inbound Lead
+                              key:
+                                description: The identifying key for contact custom field.
+                                examples:
+                                - inbound-lead
+                                type: string
+                                example: inbound-lead
+                          - anyOf:
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - multi-select
+                                value:
+                                  description: Value defined for the multi select type custom field.
+                                  examples:
+                                  - - option1
+                                    - option2
+                                  example:
+                                  - option1
+                                  - option2
+                                  anyOf:
+                                  - type: array
+                                    items:
+                                      type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - address
+                                  - string
+                                  - url
+                                value:
+                                  description: Value defined for the address, string, or url type custom field.
+                                  examples:
+                                  - 123 Main St
+                                  example: 123 Main St
+                                  anyOf:
+                                  - type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - boolean
+                                value:
+                                  description: Value defined for the boolean type custom field.
+                                  examples:
+                                  - 'false'
+                                  example: 'false'
+                                  anyOf:
+                                  - type: boolean
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - date
+                                value:
+                                  description: Value defined for the date type custom fields.
+                                  examples:
+                                  - '2024-09-11T04:00:00.000Z'
+                                  example: '2024-09-11T04:00:00.000Z'
+                                  anyOf:
+                                  - format: date-time
+                                    type: string
+                                  - type: 'null'
+                            - type: object
+                              required:
+                              - type
+                              - value
+                              properties:
+                                type:
+                                  type: string
+                                  enum:
+                                  - number
+                                value:
+                                  description: Value for the number custom field.
+                                  examples:
+                                  - '424242'
+                                  example: '424242'
+                                  anyOf:
+                                  - type: number
+                                  - type: 'null'
+                      createdAt:
+                        description: Timestamp of contact creation in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      updatedAt:
+                        description: Timestamp of last contact update in ISO 8601 format.
+                        examples:
+                        - '2022-01-01T00:00:00Z'
+                        format: date-time
+                        type: string
+                        example: '2022-01-01T00:00:00Z'
+                      createdByUserId:
+                        description: The unique identifier of the user who created the contact.
+                        examples:
+                        - US123abc
+                        pattern: ^US(.*)$
+                        type: string
+                        example: US123abc
+        '400':
+          description: Invalid Custom Field Item
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801400
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Invalid Custom Field Item
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Invalid Custom Field Item
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800401
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801403
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800404
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800409
+                    type: string
+                  status:
+                    const: 409
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Conflict
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801500
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+    delete:
+      tags:
+      - Contacts
+      summary: Delete a contact
+      description: Delete a contact by its unique identifier.
+      operationId: deleteContact_v1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          description: The unique identifier of the contact.
+          examples:
+          - 66d0d87e8dc1211467372303
+          pattern: ^(.*)$
+          type: string
+        example: 66d0d87e8dc1211467372303
+      security:
+      - apiKey: []
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Invalid Custom Field Item
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801400
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Invalid Custom Field Item
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Invalid Custom Field Item
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800401
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801403
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800404
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0800409
+                    type: string
+                  status:
+                    const: 409
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Conflict
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: 0801500
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+components:
+  securitySchemes:
+    apiKey:
+      in: header
+      name: Authorization
+      type: apiKey

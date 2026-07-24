@@ -1,0 +1,4729 @@
+openapi: 3.1.0
+info:
+  title: Quo Public Calls Tasks API
+  version: 1.0.0
+  description: API for connecting with Quo.
+  contact:
+    name: Quo Support
+    email: support@quo.com
+    url: https://support.quo.com/
+  termsOfService: https://www.quo.com/terms
+servers:
+- description: Production server
+  url: https://api.quo.com
+security:
+- apiKey: []
+tags:
+- name: Tasks
+paths:
+  /v1/tasks:
+    get:
+      tags:
+      - Tasks
+      summary: List tasks
+      description: Retrieve a list of tasks
+      operationId: listTasks_v1
+      parameters:
+      - in: query
+        name: maxResults
+        required: true
+        schema:
+          description: Maximum number of results to return per page.
+          default: 50
+          maximum: 100
+          minimum: 1
+          type: integer
+      - in: query
+        name: pageToken
+        required: false
+        schema:
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - totalItems
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - taskId
+                      - phoneNumberId
+                      - conversationId
+                      - activityId
+                      - phoneNumberGroupId
+                      - orgId
+                      - title
+                      - description
+                      - dueDate
+                      - assignedTo
+                      - assignedBy
+                      - createdAt
+                      - createdBy
+                      - completed
+                      - isDeleted
+                      - revision
+                      properties:
+                        taskId:
+                          pattern: ^TK(.*)$
+                          type: string
+                        phoneNumberId:
+                          anyOf:
+                          - pattern: ^PN(.*)$
+                            type: string
+                          - type: 'null'
+                        conversationId:
+                          anyOf:
+                          - pattern: ^CN(.*)$
+                            type: string
+                          - type: 'null'
+                        activityId:
+                          anyOf:
+                          - pattern: ^AC(.*)$
+                            type: string
+                          - type: 'null'
+                        phoneNumberGroupId:
+                          anyOf:
+                          - type: string
+                          - type: 'null'
+                        orgId:
+                          pattern: ^OR(.*)$
+                          type: string
+                        title:
+                          anyOf:
+                          - type: string
+                          - type: 'null'
+                        description:
+                          anyOf:
+                          - type: string
+                          - type: 'null'
+                        dueDate:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                        assignedTo:
+                          anyOf:
+                          - anyOf:
+                            - pattern: ^US(.*)$
+                              type: string
+                            - pattern: ^SYU(.*)$
+                              type: string
+                          - type: 'null'
+                        assignedBy:
+                          anyOf:
+                          - anyOf:
+                            - pattern: ^US(.*)$
+                              type: string
+                            - pattern: ^SYU(.*)$
+                              type: string
+                          - type: 'null'
+                        createdAt:
+                          format: date-time
+                          type: string
+                        createdBy:
+                          type: string
+                        completed:
+                          type: boolean
+                        isDeleted:
+                          type: boolean
+                        revision:
+                          type: string
+                  nextPageToken:
+                    type: string
+                  totalItems:
+                    description: Total number of items available.
+                    type: integer
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+    post:
+      tags:
+      - Tasks
+      summary: Create a task
+      description: Create a task linked to a phone number, conversation, or conversation activity. Provide exactly one of `phoneNumberId`, `conversationId`, or `activityId`.
+      operationId: createTask_v1
+      parameters: []
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: The task to create. Provide exactly one of `phoneNumberId`, `conversationId`, or `activityId` to link the task to that resource.
+              anyOf:
+              - additionalProperties: false
+                type: object
+                required:
+                - title
+                - description
+                - phoneNumberId
+                properties:
+                  title:
+                    description: The title of the task.
+                    examples:
+                    - Follow up with customer
+                    type: string
+                    example: Follow up with customer
+                  description:
+                    description: The description of the task.
+                    examples:
+                    - Discuss pricing and onboarding next steps.
+                    type: string
+                    example: Discuss pricing and onboarding next steps.
+                  dueDate:
+                    format: date-time
+                    type: string
+                  assignedTo:
+                    pattern: ^US(.*)$
+                    type: string
+                  phoneNumberId:
+                    pattern: ^PN(.*)$
+                    type: string
+              - additionalProperties: false
+                type: object
+                required:
+                - title
+                - description
+                - conversationId
+                properties:
+                  title:
+                    description: The title of the task.
+                    examples:
+                    - Follow up with customer
+                    type: string
+                    example: Follow up with customer
+                  description:
+                    description: The description of the task.
+                    examples:
+                    - Discuss pricing and onboarding next steps.
+                    type: string
+                    example: Discuss pricing and onboarding next steps.
+                  dueDate:
+                    format: date-time
+                    type: string
+                  assignedTo:
+                    pattern: ^US(.*)$
+                    type: string
+                  conversationId:
+                    pattern: ^CN(.*)$
+                    type: string
+              - additionalProperties: false
+                type: object
+                required:
+                - title
+                - description
+                - activityId
+                properties:
+                  title:
+                    description: The title of the task.
+                    examples:
+                    - Follow up with customer
+                    type: string
+                    example: Follow up with customer
+                  description:
+                    description: The description of the task.
+                    examples:
+                    - Discuss pricing and onboarding next steps.
+                    type: string
+                    example: Discuss pricing and onboarding next steps.
+                  dueDate:
+                    format: date-time
+                    type: string
+                  assignedTo:
+                    pattern: ^US(.*)$
+                    type: string
+                  activityId:
+                    pattern: ^AC(.*)$
+                    type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    - phoneNumberId
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+                      phoneNumberId:
+                        pattern: ^PN(.*)$
+                        type: string
+                      conversationId:
+                        pattern: ^CN(.*)$
+                        type: string
+                      activityId:
+                        pattern: ^AC(.*)$
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}:
+    get:
+      tags:
+      - Tasks
+      summary: Gets a task by ID
+      description: Retrieve a single task by its ID
+      operationId: getTaskById_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - phoneNumberId
+                    - conversationId
+                    - activityId
+                    - phoneNumberGroupId
+                    - orgId
+                    - title
+                    - description
+                    - dueDate
+                    - assignedTo
+                    - assignedBy
+                    - createdAt
+                    - createdBy
+                    - completed
+                    - isDeleted
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      phoneNumberId:
+                        anyOf:
+                        - pattern: ^PN(.*)$
+                          type: string
+                        - type: 'null'
+                      conversationId:
+                        anyOf:
+                        - pattern: ^CN(.*)$
+                          type: string
+                        - type: 'null'
+                      activityId:
+                        anyOf:
+                        - pattern: ^AC(.*)$
+                          type: string
+                        - type: 'null'
+                      phoneNumberGroupId:
+                        anyOf:
+                        - type: string
+                        - type: 'null'
+                      orgId:
+                        pattern: ^OR(.*)$
+                        type: string
+                      title:
+                        anyOf:
+                        - type: string
+                        - type: 'null'
+                      description:
+                        anyOf:
+                        - type: string
+                        - type: 'null'
+                      dueDate:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      assignedTo:
+                        anyOf:
+                        - anyOf:
+                          - pattern: ^US(.*)$
+                            type: string
+                          - pattern: ^SYU(.*)$
+                            type: string
+                        - type: 'null'
+                      assignedBy:
+                        anyOf:
+                        - anyOf:
+                          - pattern: ^US(.*)$
+                            type: string
+                          - pattern: ^SYU(.*)$
+                            type: string
+                        - type: 'null'
+                      createdAt:
+                        format: date-time
+                        type: string
+                      createdBy:
+                        type: string
+                      completed:
+                        type: boolean
+                      isDeleted:
+                        type: boolean
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+    delete:
+      tags:
+      - Tasks
+      summary: Delete a task by ID
+      description: Deletes the task with the provided task ID
+      operationId: deleteTask_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+    put:
+      tags:
+      - Tasks
+      summary: Update a task
+      description: Updates the task's title and description
+      operationId: updateTask_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              type: object
+              required:
+              - title
+              - description
+              properties:
+                title:
+                  description: The title of the task.
+                  examples:
+                  - Follow up with customer
+                  type: string
+                  example: Follow up with customer
+                description:
+                  description: The description of the task.
+                  examples:
+                  - Discuss pricing and onboarding next steps.
+                  type: string
+                  example: Discuss pricing and onboarding next steps.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/complete:
+    post:
+      tags:
+      - Tasks
+      summary: Complete a task
+      description: Marks the provided task as completed
+      operationId: completeTask_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/link-conversation:
+    post:
+      tags:
+      - Tasks
+      summary: Link a task to a conversation
+      description: Links the task with the provided task ID to a conversation
+      operationId: linkTaskToConversation_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - conversationId
+              properties:
+                conversationId:
+                  pattern: ^CN(.*)$
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/unlink-conversation:
+    post:
+      tags:
+      - Tasks
+      summary: Unlink a task from a conversation
+      description: Unlinks the provided conversation from the task
+      operationId: unlinkTaskFromConversation_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - conversationId
+              properties:
+                conversationId:
+                  pattern: ^CN(.*)$
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/reopen:
+    post:
+      tags:
+      - Tasks
+      summary: Reopen a task
+      description: Reopens the provided task
+      operationId: reopenTask_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/assign:
+    post:
+      tags:
+      - Tasks
+      summary: Assign a user to a task
+      description: Assigns the provided user to the list of assignees for the task
+      operationId: assignTask_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              type: object
+              required:
+              - userId
+              properties:
+                userId:
+                  pattern: ^US(.*)$
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/unassign:
+    post:
+      tags:
+      - Tasks
+      summary: Unassign a user from a task
+      description: Removes the provided user from the assignee list of a task
+      operationId: unassignTask_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              type: object
+              required:
+              - userId
+              properties:
+                userId:
+                  pattern: ^US(.*)$
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/change-due-date:
+    post:
+      tags:
+      - Tasks
+      summary: Change a task's due date
+      description: Sets the task's due date
+      operationId: changeTaskDueDate_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              additionalProperties: false
+              type: object
+              required:
+              - dueDate
+              properties:
+                dueDate:
+                  format: date-time
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/tasks/{taskId}/remove-due-date:
+    post:
+      tags:
+      - Tasks
+      summary: Remove a task's due date
+      description: Clears the task's due date
+      operationId: removeTaskDueDate_v1
+      parameters:
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          pattern: ^TK(.*)$
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - taskId
+                    - revision
+                    properties:
+                      taskId:
+                        pattern: ^TK(.*)$
+                        type: string
+                      revision:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '402':
+          description: Open Tasks Limit Reached
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600402'
+                    type: string
+                  status:
+                    const: 402
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Open Tasks Limit Reached
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0600404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0601500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+components:
+  securitySchemes:
+    apiKey:
+      in: header
+      name: Authorization
+      type: apiKey

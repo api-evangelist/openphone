@@ -1,0 +1,2791 @@
+openapi: 3.1.0
+info:
+  title: Quo Public Calls Conversations API
+  version: 1.0.0
+  description: API for connecting with Quo.
+  contact:
+    name: Quo Support
+    email: support@quo.com
+    url: https://support.quo.com/
+  termsOfService: https://www.quo.com/terms
+servers:
+- description: Production server
+  url: https://api.quo.com
+security:
+- apiKey: []
+tags:
+- description: Operations related to conversations
+  name: Conversations
+paths:
+  /conversations/{conversationId}/mark-as-read:
+    post:
+      tags:
+      - Conversations
+      summary: Mark conversation as read
+      description: Mark a conversation as read, clearing its unread indicator without sending a message. Returns the updated conversation.
+      operationId: markConversationAsRead
+      parameters:
+      - in: path
+        name: conversationId
+        required: true
+        schema:
+          description: The unique identifier of the conversation to mark as read.
+          examples:
+          - CN123abc
+          pattern: ^CN(.*)$
+          type: string
+        example: CN123abc
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - assignedTo
+                    - createdAt
+                    - deletedAt
+                    - id
+                    - lastActivityAt
+                    - lastActivityId
+                    - mutedUntil
+                    - name
+                    - participants
+                    - phoneNumberId
+                    - snoozedUntil
+                    - updatedAt
+                    properties:
+                      assignedTo:
+                        anyOf:
+                        - description: The unique identifier of the user or system user the conversation is assigned to.
+                          examples:
+                          - US123abc
+                          - SYU123abc
+                          example: US123abc
+                          anyOf:
+                          - pattern: ^US(.*)$
+                            type: string
+                          - pattern: ^SYU(.*)$
+                            type: string
+                        - type: 'null'
+                      createdAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      deletedAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      id:
+                        description: The unique identifier of the conversation.
+                        examples:
+                        - CN123abc
+                        pattern: ^CN(.*)$
+                        type: string
+                        example: CN123abc
+                      lastActivityAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      lastActivityId:
+                        anyOf:
+                        - description: The unique identifier of the most recent activity in the conversation.
+                          examples:
+                          - AC123abc
+                          pattern: ^AC(.*)$
+                          type: string
+                          example: AC123abc
+                        - type: 'null'
+                      mutedUntil:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      name:
+                        anyOf:
+                        - description: The custom name of the conversation. Will be null if no custom name is set.
+                          examples:
+                          - Chat with customer
+                          type: string
+                          example: Chat with customer
+                        - type: 'null'
+                      participants:
+                        type: array
+                        items:
+                          description: A phone number in E.164 format, including the country code.
+                          examples:
+                          - '+15555555555'
+                          pattern: ^\+[1-9]\d{1,14}$
+                          type: string
+                          example: '+15555555555'
+                      phoneNumberId:
+                        description: The unique identifier of the Quo phone number associated with the conversation.
+                        examples:
+                        - PN123abc
+                        pattern: ^PN(.*)$
+                        type: string
+                        example: PN123abc
+                      snoozedUntil:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      updatedAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                errors:
+                - path: /conversationId
+                  message: Expected string to match '^CN(.*)$'
+                  value: abc123
+                  schema:
+                    type: TemplateLiteral
+                    pattern: ^CN(.*)$
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Unauthorized
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Conversation not found
+                docs: https://quo.com/docs
+                title: Not Found
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: We have encountered an unknown error
+                docs: https://quo.com/docs
+                title: Unknown
+                trace: '6897907457496870895'
+  /conversations/{conversationId}/mark-as-done:
+    post:
+      tags:
+      - Conversations
+      summary: Mark conversation as done
+      description: Mark a conversation as done, removing it from the inbox without sending a message. Returns the updated conversation.
+      operationId: markConversationAsDone
+      parameters:
+      - in: path
+        name: conversationId
+        required: true
+        schema:
+          description: The unique identifier of the conversation to mark as done.
+          examples:
+          - CN123abc
+          pattern: ^CN(.*)$
+          type: string
+        example: CN123abc
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - assignedTo
+                    - createdAt
+                    - deletedAt
+                    - id
+                    - lastActivityAt
+                    - lastActivityId
+                    - mutedUntil
+                    - name
+                    - participants
+                    - phoneNumberId
+                    - snoozedUntil
+                    - updatedAt
+                    properties:
+                      assignedTo:
+                        anyOf:
+                        - description: The unique identifier of the user or system user the conversation is assigned to.
+                          examples:
+                          - US123abc
+                          - SYU123abc
+                          example: US123abc
+                          anyOf:
+                          - pattern: ^US(.*)$
+                            type: string
+                          - pattern: ^SYU(.*)$
+                            type: string
+                        - type: 'null'
+                      createdAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      deletedAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      id:
+                        description: The unique identifier of the conversation.
+                        examples:
+                        - CN123abc
+                        pattern: ^CN(.*)$
+                        type: string
+                        example: CN123abc
+                      lastActivityAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      lastActivityId:
+                        anyOf:
+                        - description: The unique identifier of the most recent activity in the conversation.
+                          examples:
+                          - AC123abc
+                          pattern: ^AC(.*)$
+                          type: string
+                          example: AC123abc
+                        - type: 'null'
+                      mutedUntil:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      name:
+                        anyOf:
+                        - description: The custom name of the conversation. Will be null if no custom name is set.
+                          examples:
+                          - Chat with customer
+                          type: string
+                          example: Chat with customer
+                        - type: 'null'
+                      participants:
+                        type: array
+                        items:
+                          description: A phone number in E.164 format, including the country code.
+                          examples:
+                          - '+15555555555'
+                          pattern: ^\+[1-9]\d{1,14}$
+                          type: string
+                          example: '+15555555555'
+                      phoneNumberId:
+                        description: The unique identifier of the Quo phone number associated with the conversation.
+                        examples:
+                        - PN123abc
+                        pattern: ^PN(.*)$
+                        type: string
+                        example: PN123abc
+                      snoozedUntil:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      updatedAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                errors:
+                - path: /conversationId
+                  message: Expected string to match '^CN(.*)$'
+                  value: abc123
+                  schema:
+                    type: TemplateLiteral
+                    pattern: ^CN(.*)$
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Unauthorized
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Conversation not found
+                docs: https://quo.com/docs
+                title: Not Found
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: We have encountered an unknown error
+                docs: https://quo.com/docs
+                title: Unknown
+                trace: '6897907457496870895'
+  /conversations/{conversationId}/mark-as-open:
+    post:
+      tags:
+      - Conversations
+      summary: Mark conversation as open
+      description: Mark a conversation as open, returning it to the inbox without sending a message. Returns the updated conversation.
+      operationId: markConversationAsOpen
+      parameters:
+      - in: path
+        name: conversationId
+        required: true
+        schema:
+          description: The unique identifier of the conversation to mark as open.
+          examples:
+          - CN123abc
+          pattern: ^CN(.*)$
+          type: string
+        example: CN123abc
+      - in: header
+        name: Quo-Api-Version
+        required: true
+        schema:
+          type: string
+          enum:
+          - '2026-03-30'
+          description: 'API version header. Supported values: 2026-03-30'
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - assignedTo
+                    - createdAt
+                    - deletedAt
+                    - id
+                    - lastActivityAt
+                    - lastActivityId
+                    - mutedUntil
+                    - name
+                    - participants
+                    - phoneNumberId
+                    - snoozedUntil
+                    - updatedAt
+                    properties:
+                      assignedTo:
+                        anyOf:
+                        - description: The unique identifier of the user or system user the conversation is assigned to.
+                          examples:
+                          - US123abc
+                          - SYU123abc
+                          example: US123abc
+                          anyOf:
+                          - pattern: ^US(.*)$
+                            type: string
+                          - pattern: ^SYU(.*)$
+                            type: string
+                        - type: 'null'
+                      createdAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      deletedAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      id:
+                        description: The unique identifier of the conversation.
+                        examples:
+                        - CN123abc
+                        pattern: ^CN(.*)$
+                        type: string
+                        example: CN123abc
+                      lastActivityAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      lastActivityId:
+                        anyOf:
+                        - description: The unique identifier of the most recent activity in the conversation.
+                          examples:
+                          - AC123abc
+                          pattern: ^AC(.*)$
+                          type: string
+                          example: AC123abc
+                        - type: 'null'
+                      mutedUntil:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      name:
+                        anyOf:
+                        - description: The custom name of the conversation. Will be null if no custom name is set.
+                          examples:
+                          - Chat with customer
+                          type: string
+                          example: Chat with customer
+                        - type: 'null'
+                      participants:
+                        type: array
+                        items:
+                          description: A phone number in E.164 format, including the country code.
+                          examples:
+                          - '+15555555555'
+                          pattern: ^\+[1-9]\d{1,14}$
+                          type: string
+                          example: '+15555555555'
+                      phoneNumberId:
+                        description: The unique identifier of the Quo phone number associated with the conversation.
+                        examples:
+                        - PN123abc
+                        pattern: ^PN(.*)$
+                        type: string
+                        example: PN123abc
+                      snoozedUntil:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+                      updatedAt:
+                        anyOf:
+                        - format: date-time
+                          type: string
+                        - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: The input was invalid
+                docs: https://quo.com/docs
+                title: Bad Request
+                errors:
+                - path: /conversationId
+                  message: Expected string to match '^CN(.*)$'
+                  value: abc123
+                  schema:
+                    type: TemplateLiteral
+                    pattern: ^CN(.*)$
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Unauthorized
+                docs: https://quo.com/docs
+                title: Unauthorized
+                trace: '6897907457496870895'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: User is forbidden to perform this action
+                docs: https://quo.com/docs
+                title: Forbidden
+                trace: '6897907457496870895'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: Conversation not found
+                docs: https://quo.com/docs
+                title: Not Found
+                trace: '6897907457496870895'
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+              example:
+                message: We have encountered an unknown error
+                docs: https://quo.com/docs
+                title: Unknown
+                trace: '6897907457496870895'
+  /v1/conversations:
+    get:
+      tags:
+      - Conversations
+      summary: List Conversations
+      description: Fetch a paginated list of conversations of Quo conversations. Can be filtered by user and/or phone numbers. Defaults to all conversations in the Quo organization. Results are returned in descending order based on the most recent conversation.
+      operationId: listConversations_v1
+      parameters:
+      - in: query
+        name: phoneNumber
+        required: false
+        schema:
+          description: DEPRECATED, use `phoneNumbers` instead. If both `phoneNumber` and `phoneNumbers` are provided, `phoneNumbers` will be used. Filters results to only include conversations with the specified Quo phone number. Can be either your Quo phone number ID or the full phone number in E.164 format.
+          examples:
+          - '+15555555555'
+          - PN123abc
+          deprecated: true
+          anyOf:
+          - description: A phone number in E.164 format, including the country code.
+            examples:
+            - '+15555555555'
+            pattern: ^\+[1-9]\d{1,14}$
+            type: string
+          - pattern: ^PN(.*)$
+            type: string
+        example: '+15555555555'
+      - in: query
+        name: phoneNumbers
+        required: false
+        schema:
+          description: Filters results to only include conversations with the specified Quo phone numbers. Each item can be either an Quo phone number ID or a full phone number in E.164 format.
+          examples:
+          - - '+15555555555'
+            - PN123abc
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            anyOf:
+            - description: A phone number in E.164 format, including the country code.
+              examples:
+              - '+15555555555'
+              pattern: ^\+[1-9]\d{1,14}$
+              type: string
+            - pattern: ^PN(.*)$
+              type: string
+        example:
+        - '+15555555555'
+        - PN123abc
+      - in: query
+        name: userId
+        required: false
+        schema:
+          description: The unique identifier of the user whose access scope is applied to the results. Scopes the response to conversations accessible to the specified user.
+          examples:
+          - US123abc
+          pattern: ^US(.*)$
+          type: string
+        example: US123abc
+      - in: query
+        name: createdAfter
+        required: false
+        schema:
+          description: Filter results to only include conversations created after the specified date and time, in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+          format: date-time
+          type: string
+        example: '2022-01-01T00:00:00Z'
+      - in: query
+        name: createdBefore
+        required: false
+        schema:
+          description: Filter results to only include conversations created before the specified date and time, in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+          format: date-time
+          type: string
+        example: '2022-01-01T00:00:00Z'
+      - in: query
+        name: excludeInactive
+        required: false
+        schema:
+          description: Exclude inactive conversations from the results.
+          examples:
+          - true
+          type: boolean
+        example: true
+      - in: query
+        name: updatedAfter
+        required: false
+        schema:
+          description: Filter results to only include conversations updated after the specified date and time, in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+          format: date-time
+          type: string
+        example: '2022-01-01T00:00:00Z'
+      - in: query
+        name: updatedBefore
+        required: false
+        schema:
+          description: Filter results to only include conversations updated before the specified date and time, in ISO 8601 format.
+          examples:
+          - '2022-01-01T00:00:00Z'
+          format: date-time
+          type: string
+        example: '2022-01-01T00:00:00Z'
+      - in: query
+        name: maxResults
+        required: true
+        schema:
+          description: Maximum number of results to return per page.
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: integer
+      - in: query
+        name: pageToken
+        required: false
+        schema:
+          type: string
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - totalItems
+                - nextPageToken
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - assignedTo
+                      - createdAt
+                      - deletedAt
+                      - id
+                      - lastActivityAt
+                      - lastActivityId
+                      - mutedUntil
+                      - name
+                      - participants
+                      - phoneNumberId
+                      - snoozedUntil
+                      - updatedAt
+                      properties:
+                        assignedTo:
+                          anyOf:
+                          - description: The unique identifier of the user or system user the conversation is assigned to.
+                            examples:
+                            - US123abc
+                            - SYU123abc
+                            example: US123abc
+                            anyOf:
+                            - pattern: ^US(.*)$
+                              type: string
+                            - pattern: ^SYU(.*)$
+                              type: string
+                          - type: 'null'
+                        createdAt:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                        deletedAt:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                        id:
+                          description: The unique identifier of the conversation.
+                          examples:
+                          - CN123abc
+                          pattern: ^CN(.*)$
+                          type: string
+                          example: CN123abc
+                        lastActivityAt:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                        lastActivityId:
+                          anyOf:
+                          - description: The unique identifier of the most recent activity in the conversation.
+                            examples:
+                            - AC123abc
+                            pattern: ^AC(.*)$
+                            type: string
+                            example: AC123abc
+                          - type: 'null'
+                        mutedUntil:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                        name:
+                          anyOf:
+                          - description: The custom name of the conversation. Will be null if no custom name is set.
+                            examples:
+                            - Chat with customer
+                            type: string
+                            example: Chat with customer
+                          - type: 'null'
+                        participants:
+                          type: array
+                          items:
+                            description: A phone number in E.164 format, including the country code.
+                            examples:
+                            - '+15555555555'
+                            pattern: ^\+[1-9]\d{1,14}$
+                            type: string
+                            example: '+15555555555'
+                        phoneNumberId:
+                          description: The unique identifier of the Quo phone number associated with the conversation.
+                          examples:
+                          - PN123abc
+                          pattern: ^PN(.*)$
+                          type: string
+                          example: PN123abc
+                        snoozedUntil:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                        updatedAt:
+                          anyOf:
+                          - format: date-time
+                            type: string
+                          - type: 'null'
+                  totalItems:
+                    description: 'Total number of items available. ⚠️ Note: `totalItems` is not accurately returning the total number of items that can be paginated. We are working on fixing this issue.'
+                    type: integer
+                  nextPageToken:
+                    anyOf:
+                    - type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/conversations/{conversationId}/mark-as-read:
+    post:
+      tags:
+      - Conversations
+      summary: Mark conversation as read
+      description: Mark a conversation as read, clearing its unread indicator without sending a message. Returns the updated conversation.
+      operationId: markConversationAsRead_v1
+      parameters:
+      - in: path
+        name: conversationId
+        required: true
+        schema:
+          description: The unique identifier of the conversation to mark as read.
+          examples:
+          - CN123abc
+          pattern: ^CN(.*)$
+          type: string
+        example: CN123abc
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assignedTo
+                - createdAt
+                - deletedAt
+                - id
+                - lastActivityAt
+                - lastActivityId
+                - mutedUntil
+                - name
+                - participants
+                - phoneNumberId
+                - snoozedUntil
+                - updatedAt
+                properties:
+                  assignedTo:
+                    anyOf:
+                    - description: The unique identifier of the user or system user the conversation is assigned to.
+                      examples:
+                      - US123abc
+                      - SYU123abc
+                      example: US123abc
+                      anyOf:
+                      - pattern: ^US(.*)$
+                        type: string
+                      - pattern: ^SYU(.*)$
+                        type: string
+                    - type: 'null'
+                  createdAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  deletedAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  id:
+                    description: The unique identifier of the conversation.
+                    examples:
+                    - CN123abc
+                    pattern: ^CN(.*)$
+                    type: string
+                    example: CN123abc
+                  lastActivityAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  lastActivityId:
+                    anyOf:
+                    - description: The unique identifier of the most recent activity in the conversation.
+                      examples:
+                      - AC123abc
+                      pattern: ^AC(.*)$
+                      type: string
+                      example: AC123abc
+                    - type: 'null'
+                  mutedUntil:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - description: The custom name of the conversation. Will be null if no custom name is set.
+                      examples:
+                      - Chat with customer
+                      type: string
+                      example: Chat with customer
+                    - type: 'null'
+                  participants:
+                    type: array
+                    items:
+                      description: A phone number in E.164 format, including the country code.
+                      examples:
+                      - '+15555555555'
+                      pattern: ^\+[1-9]\d{1,14}$
+                      type: string
+                      example: '+15555555555'
+                  phoneNumberId:
+                    description: The unique identifier of the Quo phone number associated with the conversation.
+                    examples:
+                    - PN123abc
+                    pattern: ^PN(.*)$
+                    type: string
+                    example: PN123abc
+                  snoozedUntil:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  updatedAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/conversations/{conversationId}/mark-as-done:
+    post:
+      tags:
+      - Conversations
+      summary: Mark conversation as done
+      description: Mark a conversation as done, removing it from the inbox without sending a message. Returns the updated conversation.
+      operationId: markConversationAsDone_v1
+      parameters:
+      - in: path
+        name: conversationId
+        required: true
+        schema:
+          description: The unique identifier of the conversation to mark as done.
+          examples:
+          - CN123abc
+          pattern: ^CN(.*)$
+          type: string
+        example: CN123abc
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assignedTo
+                - createdAt
+                - deletedAt
+                - id
+                - lastActivityAt
+                - lastActivityId
+                - mutedUntil
+                - name
+                - participants
+                - phoneNumberId
+                - snoozedUntil
+                - updatedAt
+                properties:
+                  assignedTo:
+                    anyOf:
+                    - description: The unique identifier of the user or system user the conversation is assigned to.
+                      examples:
+                      - US123abc
+                      - SYU123abc
+                      example: US123abc
+                      anyOf:
+                      - pattern: ^US(.*)$
+                        type: string
+                      - pattern: ^SYU(.*)$
+                        type: string
+                    - type: 'null'
+                  createdAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  deletedAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  id:
+                    description: The unique identifier of the conversation.
+                    examples:
+                    - CN123abc
+                    pattern: ^CN(.*)$
+                    type: string
+                    example: CN123abc
+                  lastActivityAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  lastActivityId:
+                    anyOf:
+                    - description: The unique identifier of the most recent activity in the conversation.
+                      examples:
+                      - AC123abc
+                      pattern: ^AC(.*)$
+                      type: string
+                      example: AC123abc
+                    - type: 'null'
+                  mutedUntil:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - description: The custom name of the conversation. Will be null if no custom name is set.
+                      examples:
+                      - Chat with customer
+                      type: string
+                      example: Chat with customer
+                    - type: 'null'
+                  participants:
+                    type: array
+                    items:
+                      description: A phone number in E.164 format, including the country code.
+                      examples:
+                      - '+15555555555'
+                      pattern: ^\+[1-9]\d{1,14}$
+                      type: string
+                      example: '+15555555555'
+                  phoneNumberId:
+                    description: The unique identifier of the Quo phone number associated with the conversation.
+                    examples:
+                    - PN123abc
+                    pattern: ^PN(.*)$
+                    type: string
+                    example: PN123abc
+                  snoozedUntil:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  updatedAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/conversations/{conversationId}/mark-as-open:
+    post:
+      tags:
+      - Conversations
+      summary: Mark conversation as open
+      description: Mark a conversation as open, returning it to the inbox without sending a message. Returns the updated conversation.
+      operationId: markConversationAsOpen_v1
+      parameters:
+      - in: path
+        name: conversationId
+        required: true
+        schema:
+          description: The unique identifier of the conversation to mark as open.
+          examples:
+          - CN123abc
+          pattern: ^CN(.*)$
+          type: string
+        example: CN123abc
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - assignedTo
+                - createdAt
+                - deletedAt
+                - id
+                - lastActivityAt
+                - lastActivityId
+                - mutedUntil
+                - name
+                - participants
+                - phoneNumberId
+                - snoozedUntil
+                - updatedAt
+                properties:
+                  assignedTo:
+                    anyOf:
+                    - description: The unique identifier of the user or system user the conversation is assigned to.
+                      examples:
+                      - US123abc
+                      - SYU123abc
+                      example: US123abc
+                      anyOf:
+                      - pattern: ^US(.*)$
+                        type: string
+                      - pattern: ^SYU(.*)$
+                        type: string
+                    - type: 'null'
+                  createdAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  deletedAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  id:
+                    description: The unique identifier of the conversation.
+                    examples:
+                    - CN123abc
+                    pattern: ^CN(.*)$
+                    type: string
+                    example: CN123abc
+                  lastActivityAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  lastActivityId:
+                    anyOf:
+                    - description: The unique identifier of the most recent activity in the conversation.
+                      examples:
+                      - AC123abc
+                      pattern: ^AC(.*)$
+                      type: string
+                      example: AC123abc
+                    - type: 'null'
+                  mutedUntil:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  name:
+                    anyOf:
+                    - description: The custom name of the conversation. Will be null if no custom name is set.
+                      examples:
+                      - Chat with customer
+                      type: string
+                      example: Chat with customer
+                    - type: 'null'
+                  participants:
+                    type: array
+                    items:
+                      description: A phone number in E.164 format, including the country code.
+                      examples:
+                      - '+15555555555'
+                      pattern: ^\+[1-9]\d{1,14}$
+                      type: string
+                      example: '+15555555555'
+                  phoneNumberId:
+                    description: The unique identifier of the Quo phone number associated with the conversation.
+                    examples:
+                    - PN123abc
+                    pattern: ^PN(.*)$
+                    type: string
+                    example: PN123abc
+                  snoozedUntil:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+                  updatedAt:
+                    anyOf:
+                    - format: date-time
+                      type: string
+                    - type: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Not Phone Number User
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                - description
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Phone Number User
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+                  description:
+                    const: Not Phone Number User
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1000404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '1001500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+components:
+  securitySchemes:
+    apiKey:
+      in: header
+      name: Authorization
+      type: apiKey

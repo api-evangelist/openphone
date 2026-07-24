@@ -1,0 +1,1060 @@
+openapi: 3.1.0
+info:
+  title: Quo Public Calls Phone Numbers API
+  version: 1.0.0
+  description: API for connecting with Quo.
+  contact:
+    name: Quo Support
+    email: support@quo.com
+    url: https://support.quo.com/
+  termsOfService: https://www.quo.com/terms
+servers:
+- description: Production server
+  url: https://api.quo.com
+security:
+- apiKey: []
+tags:
+- description: Operations related to phone numbers
+  name: Phone Numbers
+paths:
+  /v1/phone-numbers:
+    get:
+      tags:
+      - Phone Numbers
+      summary: List phone numbers
+      description: Retrieve the list of phone numbers and users associated with your Quo workspace.
+      operationId: listPhoneNumbers_v1
+      parameters:
+      - in: query
+        name: userId
+        required: false
+        schema:
+          description: Filter results to return only phone numbers associated with the specified user"s unique identifier.
+          examples:
+          - US123abc
+          pattern: ^US(.*)$
+          type: string
+        example: US123abc
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPhoneNumbersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0401500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+  /v1/phone-numbers/{phoneNumberId}:
+    get:
+      tags:
+      - Phone Numbers
+      summary: Get a phone number by ID
+      description: Get a phone number by its unique identifier.
+      operationId: getPhoneNumberById_v1
+      parameters:
+      - in: path
+        name: phoneNumberId
+        required: true
+        schema:
+          description: Unique identifier of the phone number.
+          examples:
+          - PNlja6rrtI
+          pattern: ^PN(.*)$
+          type: string
+        example: PNlja6rrtI
+      security:
+      - apiKey: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - groupId
+                    - portRequestId
+                    - formattedNumber
+                    - forward
+                    - name
+                    - number
+                    - portingStatus
+                    - symbol
+                    - users
+                    - createdAt
+                    - updatedAt
+                    - restrictions
+                    properties:
+                      id:
+                        description: The unique identifier of Quo phone number.
+                        examples:
+                        - PN123bc
+                        pattern: ^PN(.*)$
+                        type: string
+                        example: PN123bc
+                      groupId:
+                        description: The unique identifier of the group to which the Quo number belongs.
+                        examples:
+                        - '1234'
+                        type: string
+                        example: '1234'
+                      portRequestId:
+                        anyOf:
+                        - description: Unique identifier for the phone number’s porting request, if applicable.
+                          examples:
+                          - 123abc
+                          type: string
+                          example: 123abc
+                        - type: 'null'
+                      formattedNumber:
+                        anyOf:
+                        - description: A human-readable representation of a phone number.
+                          examples:
+                          - '+15555555555'
+                          type: string
+                          example: '+15555555555'
+                        - type: 'null'
+                      forward:
+                        anyOf:
+                        - description: Forwarding number for incoming calls, null if no forwarding number is configured.
+                          examples:
+                          - '+15555555555'
+                          type: string
+                          example: '+15555555555'
+                        - type: 'null'
+                      name:
+                        description: The display name of the phone number
+                        examples:
+                        - My phone number
+                        type: string
+                        example: My phone number
+                      number:
+                        description: A phone number in E.164 format, including the country code.
+                        examples:
+                        - '+15555555555'
+                        pattern: ^\+[1-9]\d{1,14}$
+                        type: string
+                        example: '+15555555555'
+                      portingStatus:
+                        anyOf:
+                        - description: Current status of the porting process, if applicable.
+                          examples:
+                          - completed
+                          type: string
+                          example: completed
+                        - type: 'null'
+                      symbol:
+                        anyOf:
+                        - description: Custom symbol or emoji associated with the phone number.
+                          examples:
+                          - 🏡
+                          type: string
+                          example: 🏡
+                        - type: 'null'
+                      users:
+                        type: array
+                        items:
+                          type: object
+                          allOf:
+                          - type: object
+                            required:
+                            - email
+                            - firstName
+                            - lastName
+                            - id
+                            - role
+                            properties:
+                              email:
+                                description: The user's email address.
+                                examples:
+                                - johndoe@example.com
+                                format: email
+                                type: string
+                                example: johndoe@example.com
+                              firstName:
+                                anyOf:
+                                - description: The user's first name.
+                                  examples:
+                                  - John
+                                  type: string
+                                  example: John
+                                - type: 'null'
+                              lastName:
+                                anyOf:
+                                - description: The user's last name.
+                                  examples:
+                                  - Doe
+                                  type: string
+                                  example: Doe
+                                - type: 'null'
+                              id:
+                                description: The unique identifier of the user.
+                                examples:
+                                - US123abc
+                                pattern: ^US(.*)$
+                                type: string
+                                example: US123abc
+                              role:
+                                type: string
+                                enum:
+                                - owner
+                                - admin
+                                - member
+                                description: The user's role in the organization.
+                                examples:
+                                - owner
+                                - admin
+                                - member
+                                example: owner
+                          - type: object
+                            required:
+                            - groupId
+                            properties:
+                              groupId:
+                                description: The unique identifier of the group to which the user belongs.
+                                examples:
+                                - GRcei8k90o
+                                pattern: ^GR(.*)$
+                                type: string
+                                example: GRcei8k90o
+                      createdAt:
+                        description: Timestamp of when the phone number was added to the account in ISO 8601 format.
+                        examples:
+                        - ' ''2022-01-01T00:00:00Z'''
+                        type: string
+                        example: ' ''2022-01-01T00:00:00Z'''
+                      updatedAt:
+                        description: Timestamp of the last update to the phone number's details in ISO 8601 format.
+                        examples:
+                        - ' ''2022-01-01T00:00:00Z'''
+                        type: string
+                        example: ' ''2022-01-01T00:00:00Z'''
+                      restrictions:
+                        type: object
+                        required:
+                        - calling
+                        - messaging
+                        properties:
+                          calling:
+                            type: object
+                            required:
+                            - CA
+                            - Intl
+                            - US
+                            properties:
+                              CA:
+                                type: string
+                                enum:
+                                - restricted
+                                - unrestricted
+                                description: The phone-number usage restriction status for a specific region
+                                examples:
+                                - unrestricted
+                                example: unrestricted
+                              Intl:
+                                type: string
+                                enum:
+                                - restricted
+                                - unrestricted
+                                description: The phone-number usage restriction status for a specific region
+                                examples:
+                                - unrestricted
+                                example: unrestricted
+                              US:
+                                type: string
+                                enum:
+                                - restricted
+                                - unrestricted
+                                description: The phone-number usage restriction status for a specific region
+                                examples:
+                                - unrestricted
+                                example: unrestricted
+                          messaging:
+                            type: object
+                            required:
+                            - CA
+                            - Intl
+                            - US
+                            properties:
+                              CA:
+                                type: string
+                                enum:
+                                - restricted
+                                - unrestricted
+                                description: The phone-number usage restriction status for a specific region
+                                examples:
+                                - unrestricted
+                                example: unrestricted
+                              Intl:
+                                type: string
+                                enum:
+                                - restricted
+                                - unrestricted
+                                description: The phone-number usage restriction status for a specific region
+                                examples:
+                                - unrestricted
+                                example: unrestricted
+                              US:
+                                type: string
+                                enum:
+                                - restricted
+                                - unrestricted
+                                description: The phone-number usage restriction status for a specific region
+                                examples:
+                                - unrestricted
+                                example: unrestricted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400400'
+                    type: string
+                  status:
+                    const: 400
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Bad Request
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400401'
+                    type: string
+                  status:
+                    const: 401
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unauthorized
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400403'
+                    type: string
+                  status:
+                    const: 403
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Forbidden
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0400404'
+                    type: string
+                  status:
+                    const: 404
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Not Found
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+        '500':
+          description: Unknown Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - message
+                - code
+                - status
+                - docs
+                - title
+                properties:
+                  message:
+                    type: string
+                  code:
+                    const: '0401500'
+                    type: string
+                  status:
+                    const: 500
+                    type: number
+                  docs:
+                    const: https://quo.com/docs
+                    type: string
+                  title:
+                    const: Unknown
+                    type: string
+                  trace:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - path
+                      - message
+                      - schema
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                        value: {}
+                        schema:
+                          type: object
+                          required:
+                          - type
+                          properties:
+                            type:
+                              type: string
+components:
+  schemas:
+    ListPhoneNumbersResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - groupId
+            - portRequestId
+            - formattedNumber
+            - forward
+            - name
+            - number
+            - portingStatus
+            - symbol
+            - users
+            - createdAt
+            - updatedAt
+            - restrictions
+            properties:
+              id:
+                description: The unique identifier of Quo phone number.
+                examples:
+                - PN123bc
+                pattern: ^PN(.*)$
+                type: string
+                example: PN123bc
+              groupId:
+                description: The unique identifier of the group to which the Quo number belongs.
+                examples:
+                - '1234'
+                type: string
+                example: '1234'
+              portRequestId:
+                anyOf:
+                - description: Unique identifier for the phone number’s porting request, if applicable.
+                  examples:
+                  - 123abc
+                  type: string
+                  example: 123abc
+                - type: 'null'
+              formattedNumber:
+                anyOf:
+                - description: A human-readable representation of a phone number.
+                  examples:
+                  - '+15555555555'
+                  type: string
+                  example: '+15555555555'
+                - type: 'null'
+              forward:
+                anyOf:
+                - description: Forwarding number for incoming calls, null if no forwarding number is configured.
+                  examples:
+                  - '+15555555555'
+                  type: string
+                  example: '+15555555555'
+                - type: 'null'
+              name:
+                description: The display name of the phone number
+                examples:
+                - My phone number
+                type: string
+                example: My phone number
+              number:
+                description: A phone number in E.164 format, including the country code.
+                examples:
+                - '+15555555555'
+                pattern: ^\+[1-9]\d{1,14}$
+                type: string
+                example: '+15555555555'
+              portingStatus:
+                anyOf:
+                - description: Current status of the porting process, if applicable.
+                  examples:
+                  - completed
+                  type: string
+                  example: completed
+                - type: 'null'
+              symbol:
+                anyOf:
+                - description: Custom symbol or emoji associated with the phone number.
+                  examples:
+                  - 🏡
+                  type: string
+                  example: 🏡
+                - type: 'null'
+              users:
+                type: array
+                items:
+                  type: object
+                  allOf:
+                  - type: object
+                    required:
+                    - email
+                    - firstName
+                    - lastName
+                    - id
+                    - role
+                    properties:
+                      email:
+                        description: The user's email address.
+                        examples:
+                        - johndoe@example.com
+                        format: email
+                        type: string
+                        example: johndoe@example.com
+                      firstName:
+                        anyOf:
+                        - description: The user's first name.
+                          examples:
+                          - John
+                          type: string
+                          example: John
+                        - type: 'null'
+                      lastName:
+                        anyOf:
+                        - description: The user's last name.
+                          examples:
+                          - Doe
+                          type: string
+                          example: Doe
+                        - type: 'null'
+                      id:
+                        description: The unique identifier of the user.
+                        examples:
+                        - US123abc
+                        pattern: ^US(.*)$
+                        type: string
+                        example: US123abc
+                      role:
+                        type: string
+                        enum:
+                        - owner
+                        - admin
+                        - member
+                        description: The user's role in the organization.
+                        examples:
+                        - owner
+                        - admin
+                        - member
+                        example: owner
+                  - type: object
+                    required:
+                    - groupId
+                    properties:
+                      groupId:
+                        description: The unique identifier of the group to which the user belongs.
+                        examples:
+                        - GRcei8k90o
+                        pattern: ^GR(.*)$
+                        type: string
+                        example: GRcei8k90o
+              createdAt:
+                description: Timestamp of when the phone number was added to the account in ISO 8601 format.
+                examples:
+                - ' ''2022-01-01T00:00:00Z'''
+                type: string
+                example: ' ''2022-01-01T00:00:00Z'''
+              updatedAt:
+                description: Timestamp of the last update to the phone number's details in ISO 8601 format.
+                examples:
+                - ' ''2022-01-01T00:00:00Z'''
+                type: string
+                example: ' ''2022-01-01T00:00:00Z'''
+              restrictions:
+                type: object
+                required:
+                - calling
+                - messaging
+                properties:
+                  calling:
+                    type: object
+                    required:
+                    - CA
+                    - Intl
+                    - US
+                    properties:
+                      CA:
+                        type: string
+                        enum:
+                        - restricted
+                        - unrestricted
+                        description: The phone-number usage restriction status for a specific region
+                        examples:
+                        - unrestricted
+                        example: unrestricted
+                      Intl:
+                        type: string
+                        enum:
+                        - restricted
+                        - unrestricted
+                        description: The phone-number usage restriction status for a specific region
+                        examples:
+                        - unrestricted
+                        example: unrestricted
+                      US:
+                        type: string
+                        enum:
+                        - restricted
+                        - unrestricted
+                        description: The phone-number usage restriction status for a specific region
+                        examples:
+                        - unrestricted
+                        example: unrestricted
+                  messaging:
+                    type: object
+                    required:
+                    - CA
+                    - Intl
+                    - US
+                    properties:
+                      CA:
+                        type: string
+                        enum:
+                        - restricted
+                        - unrestricted
+                        description: The phone-number usage restriction status for a specific region
+                        examples:
+                        - unrestricted
+                        example: unrestricted
+                      Intl:
+                        type: string
+                        enum:
+                        - restricted
+                        - unrestricted
+                        description: The phone-number usage restriction status for a specific region
+                        examples:
+                        - unrestricted
+                        example: unrestricted
+                      US:
+                        type: string
+                        enum:
+                        - restricted
+                        - unrestricted
+                        description: The phone-number usage restriction status for a specific region
+                        examples:
+                        - unrestricted
+                        example: unrestricted
+  securitySchemes:
+    apiKey:
+      in: header
+      name: Authorization
+      type: apiKey
