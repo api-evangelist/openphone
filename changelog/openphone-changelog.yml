@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.quo.com/docs/mdx/api-reference/changelog
+docs: https://www.quo.com/docs/mdx/api-reference/changelog
+product_changelog: https://support.quo.com/changelog
+scheme: dated
+note: >-
+  OpenPhone (now Quo) publishes a dated API changelog. Versioning is by URI path
+  (/v1). No semantic version numbers are attached to individual changes. Recent
+  window captured below.
+entries:
+- date: '2026-06-18'
+  breaking: false
+  highlights:
+  - Messages endpoints now include conversationId in the response body.
+  - GET /v1/messages supports retrieving group conversation messages via the participants array.
+- date: '2026-06-16'
+  breaking: false
+  highlights:
+  - Mark a conversation as done (POST /v1/conversations/{conversationId}/mark-as-done).
+  - Mark a conversation as open (POST /v1/conversations/{conversationId}/mark-as-open).
+  - POST /v1/messages now accepts up to 10 phone numbers in the to array (group messages).
+- date: '2026-06-15'
+  breaking: false
+  highlights:
+  - Mark a conversation as read (POST /v1/conversations/{conversationId}/mark-as-read).
+- date: '2026-06-08'
+  breaking: false
+  highlights:
+  - New Tasks API (list, create, get, update, delete, complete, reopen, assign/unassign,
+    change/remove due date, link/unlink conversation).
+- date: '2026-05-26'
+  breaking: false
+  highlights:
+  - 'Beta webhook API: five call lifecycle events added (call.ringing, call.answered,
+    call.forwarded, call.missed, call.voicemail.completed), reaching parity with the
+    legacy webhook system.'
+- date: '2026-05-11'
+  breaking: false
+  highlights:
+  - Beta webhook API in open beta with unified POST /webhooks create endpoint replacing
+    the four legacy per-type create endpoints. Up to 50 webhooks per workspace.
+  - 'Launch event types: message.received, message.delivered, call.completed.'

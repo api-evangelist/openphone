@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.quo.com/docs + status pages + changelog
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://www.quo.com/docs/mdx/api-reference/introduction
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No formal RFC 8594 Sunset/Deprecation-header policy is published. In practice
+    the four legacy per-type webhook create endpoints (/v1/webhooks/messages,
+    /v1/webhooks/calls, /v1/webhooks/call-summaries, /v1/webhooks/call-transcripts)
+    are being superseded by a unified beta webhook API (POST /webhooks), announced
+    in the changelog rather than via headers.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.openphone.com
+status_page_alt: https://status.quo.com
+changelog: https://www.quo.com/docs/mdx/api-reference/changelog
+deprecated_operations: []
+legacy_operations:
+- openapi/openphone-openapi-original.json#createMessageWebhook_v1
+- openapi/openphone-openapi-original.json#createCallWebhook_v1
+- openapi/openphone-openapi-original.json#createCallSummaryWebhook_v1
+- openapi/openphone-openapi-original.json#createCallTranscriptWebhook_v1

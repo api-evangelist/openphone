@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/openphone-openapi-original.json + conventions/openphone-conventions.yml
+skills:
+- file: openphone-send-text-message.md
+  name: Send a text message with OpenPhone/Quo
+  api: openapi/openphone-openapi-original.json
+  operations: [listPhoneNumbers_v1, sendMessage_v1, listMessages_v1, getMessageById_v1]
+- file: openphone-manage-webhooks.md
+  name: Subscribe to OpenPhone/Quo events with webhooks
+  api: openapi/openphone-openapi-original.json
+  operations: [createMessageWebhook_v1, createCallWebhook_v1, listWebhooks_v1, getWebhookById_v1, deleteWebhookById_v1]
+- file: openphone-sync-contacts.md
+  name: Sync contacts into OpenPhone/Quo
+  api: openapi/openphone-openapi-original.json
+  operations: [getContactCustomFields_v1, createContact_v1, listContacts_v1, getContactById_v1, updateContactById_v1, deleteContact_v1]
+- file: openphone-review-call-ai.md
+  name: Review a call with AI summary and transcript
+  api: openapi/openphone-openapi-original.json
+  operations: [listCalls_v1, getCallById_v1, getCallRecordings_v1, getCallVoicemails_v1, getCallSummary_v1, getCallTranscript_v1]

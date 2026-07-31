@@ -1,0 +1,144 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: derived from openapi/openphone-openapi-original.json operations
+note: No official first-party hosted MCP server found. A community server exists on npm (openphone-mcp
+  by jrejaud, unofficial). Tools below are candidate mappings from OpenAPI operations.
+community_servers:
+- name: openphone-mcp
+  registry: npm
+  url: https://www.npmjs.com/package/openphone-mcp
+  official: false
+server:
+  name: openphone
+  transport: stdio
+tools:
+- name: getCallRecordings_v1
+  description: Get recordings for a call
+  source_operation: openapi/openphone-openapi-original.json#getCallRecordings_v1
+- name: listCalls_v1
+  description: List calls
+  source_operation: openapi/openphone-openapi-original.json#listCalls_v1
+- name: getCallById_v1
+  description: Get a call by ID
+  source_operation: openapi/openphone-openapi-original.json#getCallById_v1
+- name: getCallSummary_v1
+  description: Get a summary for a call
+  source_operation: openapi/openphone-openapi-original.json#getCallSummary_v1
+- name: getCallTranscript_v1
+  description: Get a transcription for a call
+  source_operation: openapi/openphone-openapi-original.json#getCallTranscript_v1
+- name: getCallVoicemails_v1
+  description: Get a voicemail for a call
+  source_operation: openapi/openphone-openapi-original.json#getCallVoicemails_v1
+- name: getContactCustomFields_v1
+  description: Get contact custom fields
+  source_operation: openapi/openphone-openapi-original.json#getContactCustomFields_v1
+- name: createContact_v1
+  description: Create a contact
+  source_operation: openapi/openphone-openapi-original.json#createContact_v1
+- name: listContacts_v1
+  description: List contacts
+  source_operation: openapi/openphone-openapi-original.json#listContacts_v1
+- name: getContactById_v1
+  description: Get a contact by ID
+  source_operation: openapi/openphone-openapi-original.json#getContactById_v1
+- name: updateContactById_v1
+  description: Update a contact by ID
+  source_operation: openapi/openphone-openapi-original.json#updateContactById_v1
+- name: deleteContact_v1
+  description: Delete a contact
+  source_operation: openapi/openphone-openapi-original.json#deleteContact_v1
+- name: listConversations_v1
+  description: List Conversations
+  source_operation: openapi/openphone-openapi-original.json#listConversations_v1
+- name: markConversationAsRead_v1
+  description: Mark conversation as read
+  source_operation: openapi/openphone-openapi-original.json#markConversationAsRead_v1
+- name: markConversationAsDone_v1
+  description: Mark conversation as done
+  source_operation: openapi/openphone-openapi-original.json#markConversationAsDone_v1
+- name: markConversationAsOpen_v1
+  description: Mark conversation as open
+  source_operation: openapi/openphone-openapi-original.json#markConversationAsOpen_v1
+- name: sendMessage_v1
+  description: Send a text message
+  source_operation: openapi/openphone-openapi-original.json#sendMessage_v1
+- name: listMessages_v1
+  description: List messages
+  source_operation: openapi/openphone-openapi-original.json#listMessages_v1
+- name: getMessageById_v1
+  description: Get a message by ID
+  source_operation: openapi/openphone-openapi-original.json#getMessageById_v1
+- name: listPhoneNumbers_v1
+  description: List phone numbers
+  source_operation: openapi/openphone-openapi-original.json#listPhoneNumbers_v1
+- name: getPhoneNumberById_v1
+  description: Get a phone number by ID
+  source_operation: openapi/openphone-openapi-original.json#getPhoneNumberById_v1
+- name: listTasks_v1
+  description: List tasks
+  source_operation: openapi/openphone-openapi-original.json#listTasks_v1
+- name: createTask_v1
+  description: Create a task
+  source_operation: openapi/openphone-openapi-original.json#createTask_v1
+- name: getTaskById_v1
+  description: Gets a task by ID
+  source_operation: openapi/openphone-openapi-original.json#getTaskById_v1
+- name: deleteTask_v1
+  description: Delete a task by ID
+  source_operation: openapi/openphone-openapi-original.json#deleteTask_v1
+- name: updateTask_v1
+  description: Update a task
+  source_operation: openapi/openphone-openapi-original.json#updateTask_v1
+- name: completeTask_v1
+  description: Complete a task
+  source_operation: openapi/openphone-openapi-original.json#completeTask_v1
+- name: linkTaskToConversation_v1
+  description: Link a task to a conversation
+  source_operation: openapi/openphone-openapi-original.json#linkTaskToConversation_v1
+- name: unlinkTaskFromConversation_v1
+  description: Unlink a task from a conversation
+  source_operation: openapi/openphone-openapi-original.json#unlinkTaskFromConversation_v1
+- name: reopenTask_v1
+  description: Reopen a task
+  source_operation: openapi/openphone-openapi-original.json#reopenTask_v1
+- name: assignTask_v1
+  description: Assign a user to a task
+  source_operation: openapi/openphone-openapi-original.json#assignTask_v1
+- name: unassignTask_v1
+  description: Unassign a user from a task
+  source_operation: openapi/openphone-openapi-original.json#unassignTask_v1
+- name: changeTaskDueDate_v1
+  description: Change a task's due date
+  source_operation: openapi/openphone-openapi-original.json#changeTaskDueDate_v1
+- name: removeTaskDueDate_v1
+  description: Remove a task's due date
+  source_operation: openapi/openphone-openapi-original.json#removeTaskDueDate_v1
+- name: listUsers_v1
+  description: List users
+  source_operation: openapi/openphone-openapi-original.json#listUsers_v1
+- name: getUserById_v1
+  description: Get a user by ID
+  source_operation: openapi/openphone-openapi-original.json#getUserById_v1
+- name: listWebhooks_v1
+  description: Lists all webhooks
+  source_operation: openapi/openphone-openapi-original.json#listWebhooks_v1
+- name: getWebhookById_v1
+  description: Get a webhook by ID
+  source_operation: openapi/openphone-openapi-original.json#getWebhookById_v1
+- name: deleteWebhookById_v1
+  description: Delete a webhook by ID
+  source_operation: openapi/openphone-openapi-original.json#deleteWebhookById_v1
+- name: createMessageWebhook_v1
+  description: Create a new webhook for messages
+  source_operation: openapi/openphone-openapi-original.json#createMessageWebhook_v1
+- name: createCallWebhook_v1
+  description: Create a new webhook for calls
+  source_operation: openapi/openphone-openapi-original.json#createCallWebhook_v1
+- name: createCallSummaryWebhook_v1
+  description: Create a new webhook for call summaries
+  source_operation: openapi/openphone-openapi-original.json#createCallSummaryWebhook_v1
+- name: createCallTranscriptWebhook_v1
+  description: Create a new webhook for call transcripts
+  source_operation: openapi/openphone-openapi-original.json#createCallTranscriptWebhook_v1

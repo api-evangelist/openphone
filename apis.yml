@@ -1,25 +1,212 @@
 aid: openphone
 name: OpenPhone
-description: OpenPhone is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  OpenPhone (rebranded to Quo in 2026) is a business phone and customer
+  communications platform that provides shared phone numbers, calling, SMS/MMS
+  texting, AI call summaries and transcripts, contacts, conversations, and tasks
+  for teams. Its public REST API lets developers programmatically send messages,
+  list and retrieve calls with recordings and voicemails, manage contacts and
+  custom fields, manage conversations and tasks, look up phone numbers and users,
+  and subscribe to webhooks for message and call events. The API uses API-key
+  authentication in the Authorization header, returns JSON over HTTPS at
+  https://api.quo.com, uses cursor-based pagination, and is rate limited to 10
+  requests per second. OpenPhone was surfaced as a portfolio company of 500
+  Global and profiled into the API Evangelist network.
 url: https://raw.githubusercontent.com/api-evangelist/openphone/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: has-public-api
+x-rebrand:
+  from: OpenPhone
+  to: Quo
+  note: openphone.com and api.openphone.com redirect to quo.com and api.quo.com
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1
 tags:
 - Company
-apis: []
+- Communications
+- Voice
+- SMS
+- Messaging
+- Telephony
+- Business Phone
+- CPaaS
+- Contact Center
+- Webhooks
+image: https://www.quo.com/favicon.ico
+apis:
+- aid: openphone:openphone-calls-api
+  name: OpenPhone Calls API
+  description: Operations related to calls
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Calls
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-calls-api-openapi.yml
+- aid: openphone:openphone-contact-custom-fields-api
+  name: OpenPhone Contact Custom Fields API
+  description: The Contact Custom Fields API from OpenPhone — 1 operation(s) for contact custom fields.
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Contact Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-contact-custom-fields-api-openapi.yml
+- aid: openphone:openphone-contacts-api
+  name: OpenPhone Contacts API
+  description: Operations related to contacts
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-contacts-api-openapi.yml
+- aid: openphone:openphone-conversations-api
+  name: OpenPhone Conversations API
+  description: Operations related to conversations
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-conversations-api-openapi.yml
+- aid: openphone:openphone-messages-api
+  name: OpenPhone Messages API
+  description: Operations related to text messages
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-messages-api-openapi.yml
+- aid: openphone:openphone-phone-numbers-api
+  name: OpenPhone Phone Numbers API
+  description: Operations related to phone numbers
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Phone Numbers
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-phone-numbers-api-openapi.yml
+- aid: openphone:openphone-tasks-api
+  name: OpenPhone Tasks API
+  description: The Tasks API from OpenPhone — 10 operation(s) for tasks.
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-tasks-api-openapi.yml
+- aid: openphone:openphone-users-api
+  name: OpenPhone Users API
+  description: Operations related to users
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-users-api-openapi.yml
+- aid: openphone:openphone-webhooks-api
+  name: OpenPhone Webhooks API
+  description: Operations related to webhooks
+  humanURL: https://www.quo.com/docs/mdx/api-reference/introduction
+  baseURL: https://api.quo.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/openphone-webhooks-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/openphone-trust-center.yml
+- type: DomainSecurity
+  url: security/openphone-domain-security.yml
 - type: Website
-  url: https://mightytext.net
+  url: https://www.quo.com
+- type: DeveloperPortal
+  url: https://www.quo.com/docs
+- type: Documentation
+  url: https://www.quo.com/docs/mdx/api-reference/introduction
+- type: APIReference
+  url: https://www.quo.com/docs/mdx/api-reference/introduction
+- type: GettingStarted
+  url: https://www.quo.com/docs/mdx/api-reference/send-your-first-message
+- type: Authentication
+  url: authentication/openphone-authentication.yml
+- type: Pricing
+  url: https://www.quo.com/docs/mdx/pricing-support/pricing-overview
+- type: Support
+  url: https://support.quo.com/
+- type: TermsOfService
+  url: https://www.quo.com/terms
+- type: SignUp
+  url: https://my.openphone.com/signup
+- type: Login
+  url: https://my.openphone.com/
+- type: StatusPage
+  url: https://status.openphone.com
+- type: ChangeLog
+  url: https://www.quo.com/docs/mdx/api-reference/changelog
+- type: ChangeLog
+  url: changelog/openphone-changelog.yml
+- type: Compliance
+  url: https://www.quo.com/security
+- type: Lifecycle
+  url: lifecycle/openphone-lifecycle.yml
+- type: Conventions
+  url: conventions/openphone-conventions.yml
+- type: ErrorCatalog
+  url: errors/openphone-problem-types.yml
+- type: Conformance
+  url: conformance/openphone-conformance.yml
+- type: DataModel
+  url: data-model/openphone-data-model.yml
+- type: Webhooks
+  url: asyncapi/openphone-webhooks.yml
+- type: MCPServer
+  url: mcp/openphone-mcp.yml
+- type: WellKnown
+  url: well-known/openphone-well-known.yml
+- type: Overlay
+  url: overlays/openphone-openapi-overlay.yaml
+- type: Packages
+  url: packages/openphone-packages.yml
+- type: LLMsTxt
+  url: llms/openphone-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml

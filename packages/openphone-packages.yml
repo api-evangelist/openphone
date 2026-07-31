@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+source: npm registry search + PyPI + docs
+note: >-
+  OpenPhone/Quo does not publish a first-party SDK. The github.com/openphone/
+  openphone-api-sdk repository returns 404 and no official client library was
+  found on npm, PyPI, Maven Central, NuGet, RubyGems, or crates.io. The packages
+  below are community/third-party (official: false) and are recorded for
+  discovery only. No `type: SDKs` pointer is emitted, since no official client
+  library exists.
+packages:
+- language: typescript
+  registry: npm
+  name: '@noobforal/openphone-api-sdk'
+  url: https://www.npmjs.com/package/@noobforal/openphone-api-sdk
+  install: npm install @noobforal/openphone-api-sdk
+  official: false
+  note: 'Self-described "Unofficial TypeScript SDK (AI-generated - use with caution)".'
+- language: typescript
+  registry: npm
+  name: openphone-mcp
+  url: https://www.npmjs.com/package/openphone-mcp
+  install: npm install openphone-mcp
+  official: false
+  note: Community MCP server (jrejaud), not a client SDK.
+- language: javascript
+  registry: npm
+  name: n8n-nodes-openphone
+  url: https://www.npmjs.com/package/n8n-nodes-openphone
+  install: npm install n8n-nodes-openphone
+  official: false
+  note: Community n8n workflow nodes.
+pypi: none
+maven: none
+nuget: none
+rubygems: none
+crates: none

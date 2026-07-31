@@ -1,0 +1,90 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/openphone-openapi-original.json inline request/response schemas + id-reference fields
+entities:
+- name: PhoneNumber
+  id: phoneNumberId
+  description: A Quo workspace phone number (shared/team number).
+- name: User
+  id: userId
+  description: A member of the Quo workspace.
+- name: Contact
+  id: id
+  description: A contact record with default and custom fields, emails and phone numbers.
+- name: Conversation
+  id: conversationId
+  description: A thread of messages/calls between a Quo number and participants.
+- name: Message
+  id: id
+  description: An SMS/MMS message with direction, status, from/to, and text.
+- name: Call
+  id: callId
+  description: A voice call with recordings, voicemails, summaries and transcripts.
+- name: CallSummary
+  id: callId
+  description: AI-generated summary of a call (business/scale plans).
+- name: CallTranscript
+  id: id
+  description: AI-generated transcript of a call (business/scale plans).
+- name: Task
+  id: taskId
+  description: A task linked to a phone number, conversation, or activity.
+- name: Webhook
+  id: id
+  description: A webhook subscription for message/call events.
+- name: ContactCustomField
+  id: key
+  description: A user-defined custom field on contacts.
+relationships:
+- from: Message
+  to: Conversation
+  type: belongs_to
+  via: conversationId
+- from: Message
+  to: PhoneNumber
+  type: belongs_to
+  via: phoneNumberId
+- from: Message
+  to: User
+  type: belongs_to
+  via: userId
+- from: Call
+  to: PhoneNumber
+  type: belongs_to
+  via: phoneNumberId
+- from: Call
+  to: CallSummary
+  type: has_one
+  via: callId
+- from: Call
+  to: CallTranscript
+  type: has_one
+  via: callId
+- from: Conversation
+  to: PhoneNumber
+  type: belongs_to
+  via: phoneNumber
+- from: Task
+  to: PhoneNumber
+  type: belongs_to
+  via: phoneNumberId
+- from: Task
+  to: Conversation
+  type: belongs_to
+  via: conversationId
+- from: Task
+  to: User
+  type: has_many
+  via: assignedTo
+- from: Contact
+  to: User
+  type: belongs_to
+  via: createdByUserId
+- from: Contact
+  to: ContactCustomField
+  type: has_many
+  via: customFields
+- from: PhoneNumber
+  to: User
+  type: has_many
+  via: users

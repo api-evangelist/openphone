@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/openphone-openapi-original.json + https://www.quo.com/security + docs
+standards:
+- id: oauth2
+  conforms: false
+  evidence: API uses API-key auth only; no oauth2 securityScheme.
+- id: openid-connect
+  conforms: false
+- id: apikey-auth
+  conforms: true
+  evidence: securityScheme apiKey in Authorization header
+- id: rest-json
+  conforms: true
+  evidence: REST design with JSON request/response bodies
+- id: openapi-3.1
+  conforms: true
+  evidence: Published OpenAPI 3.1.0 specification
+- id: cursor-pagination
+  conforms: true
+  evidence: pageToken/maxResults request params; nextPageToken/totalItems in responses
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: JSON errors but not application/problem+json
+- id: idempotency-keys
+  conforms: false
+  evidence: No Idempotency-Key header documented or in spec
+- id: webhooks
+  conforms: true
+  evidence: Webhook subscription API for message and call events
+- id: soc2
+  conforms: true
+  evidence: SOC 2 stated on https://www.quo.com/security
+- id: hipaa
+  conforms: true
+  evidence: HIPAA stated on https://www.quo.com/security
+- id: gdpr
+  conforms: true
+  evidence: GDPR stated on https://www.quo.com/security

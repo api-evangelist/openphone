@@ -1,0 +1,59 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://www.quo.com/docs/mdx/api-reference/webhooks/ +
+  https://www.quo.com/docs/mdx/beta/webhooks-overview + changelog
+spec_type: Webhooks
+note: >-
+  OpenPhone/Quo does not publish an AsyncAPI document. It exposes webhook
+  subscriptions managed through the REST API. A legacy per-type webhook system
+  and a newer unified beta webhook API (POST /webhooks, up to 50 webhooks per
+  workspace) coexist. Events are delivered as JSON POSTs to a subscriber URL.
+management_operations:
+- listWebhooks_v1
+- getWebhookById_v1
+- deleteWebhookById_v1
+- createMessageWebhook_v1
+- createCallWebhook_v1
+- createCallSummaryWebhook_v1
+- createCallTranscriptWebhook_v1
+delivery:
+  transport: https-post
+  content_type: application/json
+event_types:
+- name: message.received
+  when: An inbound message was received.
+- name: message.delivered
+  when: An outbound message was delivered.
+- name: message.failed
+  when: An outbound message failed to send.
+- name: message.undelivered
+  when: An outbound message was not delivered.
+- name: call.completed
+  when: A call ended; includes final status and duration.
+- name: call.ringing
+  when: A call started ringing (incoming or outgoing).
+- name: call.answered
+  when: A call connected (also fires when an outgoing call reaches voicemail).
+- name: call.forwarded
+  when: An incoming call was forwarded; includes forwardedFrom and forwardedTo.
+- name: call.missed
+  when: An incoming call ended without being answered.
+- name: call.voicemail.completed
+  when: A voicemail finished processing.
+- name: call.recording.completed
+  when: A call recording finished processing.
+- name: call.summary.completed
+  when: An AI call summary finished (business/scale plans).
+- name: call.transcript.completed
+  when: An AI call transcript finished (business/scale plans).
+- name: call.menu.selected
+  when: A caller selected a phone-menu (IVR) option.
+- name: contact.updated
+  when: A contact was created or updated.
+- name: contact.deleted
+  when: A contact was deleted.
+docs:
+  legacy: https://www.quo.com/docs/mdx/api-reference/webhooks/lists-all-webhooks
+  beta_overview: https://www.quo.com/docs/mdx/beta/webhooks-overview
+  event_payloads: https://www.quo.com/docs/mdx/beta/webhooks-event-payloads

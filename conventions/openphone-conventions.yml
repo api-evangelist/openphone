@@ -1,0 +1,63 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://www.quo.com/docs/mdx/api-reference/ (authentication, rate-limits,
+  error-codes) + derived from openapi/openphone-openapi-original.json
+authentication:
+  style: api-key
+  location: header
+  header: Authorization
+  bearer: false
+  note: >-
+    API key sent verbatim in the Authorization header (NOT a Bearer token). Keys
+    are generated per-workspace under Settings > API by an owner/admin and carry
+    full account privileges.
+  docs: https://www.quo.com/docs/mdx/api-reference/authentication
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header is documented or present in the OpenAPI. POST
+    operations (e.g. sendMessage_v1) are not idempotent; avoid blind retries on
+    5xx/timeout to prevent duplicate sends.
+pagination:
+  style: cursor
+  request_params:
+  - pageToken
+  - maxResults
+  response_fields:
+  - data
+  - nextPageToken
+  - totalItems
+  note: >-
+    Cursor-based. Pass the nextPageToken from the previous response as pageToken
+    to fetch the next page; maxResults bounds page size.
+filtering:
+  note: >-
+    List endpoints for calls/messages support phoneNumberId, userId, participants,
+    since, createdAfter, createdBefore. Contacts support externalIds and sources.
+    Conversations support phoneNumber(s), userId, and created/updated ranges.
+envelope:
+  style: data-wrapper
+  note: Responses wrap the resource(s) under a top-level `data` field.
+error_envelope:
+  format: http-status
+  note: >-
+    Standard HTTP status codes; JSON error bodies (not RFC 9457 problem+json).
+    See errors/openphone-problem-types.yml.
+  ref: errors/openphone-problem-types.yml
+versioning:
+  style: uri-path
+  current: v1
+  ref: lifecycle/openphone-lifecycle.yml
+rate_limiting:
+  limit: 10 requests/second per API key
+  exceeded_status: 429
+  retry: exponential backoff recommended
+  headers_documented: false
+  docs: https://www.quo.com/docs/mdx/api-reference/rate-limits
+request_tracing:
+  request_id_header: null
+  note: No request-id/correlation header is documented.
+media_types:
+  request: application/json
+  response: application/json

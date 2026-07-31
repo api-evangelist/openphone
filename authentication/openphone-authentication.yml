@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/openphone-2026-03-30-openapi.json, openapi/openphone-openapi-original.json
+docs: https://www.quo.com/docs/mdx/api-reference/authentication
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+details: >-
+  The Quo (OpenPhone) API uses API-key authentication. Include the API key in the
+  Authorization header of every request; it is sent verbatim and NOT as a Bearer
+  token. Keys are generated per-workspace under Settings > API by a workspace
+  owner or admin, carry full account privileges, and can be revoked individually.
+  Sending SMS to US numbers additionally requires completing US carrier
+  registration.
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: Authorization
+  bearer: false
+  sources:
+  - openapi/openphone-2026-03-30-openapi.json
+  - openapi/openphone-openapi-original.json

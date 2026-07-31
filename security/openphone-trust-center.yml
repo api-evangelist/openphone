@@ -1,0 +1,15 @@
+generated: '2026-07-20'
+method: searched
+probe: true
+source: https://www.quo.com/security
+url: https://www.quo.com/security
+certifications:
+- SOC 2
+- HIPAA
+- GDPR
+evidence:
+- source: https://www.quo.com/security
+  keywords:
+  - soc 2
+  - hipaa
+  - gdpr

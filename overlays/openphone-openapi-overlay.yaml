@@ -1,0 +1,13 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for OpenPhone/Quo Public API
+  version: 1.0.0
+extends: openapi/openphone-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-20'
+    x-api-evangelist-rebrand: OpenPhone rebranded to Quo; base host api.openphone.com -> api.quo.com
+    x-authentication: API key in Authorization header (no Bearer prefix)
+    x-rate-limit: 10 requests/second per API key; 429 on exceed
+    x-pagination: cursor-based via pageToken/maxResults; nextPageToken/totalItems in responses

@@ -1,0 +1,43 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/openphone-openapi-original.json 4xx/5xx responses + https://www.quo.com/docs/mdx/api-reference/error-codes
+format: http-status
+note: Quo uses standard HTTP status codes. Responses are JSON but not RFC 9457 application/problem+json.
+envelope: JSON body; some 4xx include a machine-readable error code field per the error-codes reference.
+docs: https://www.quo.com/docs/mdx/api-reference/error-codes
+problems:
+- status: 400
+  title: Bad Request
+  description: Invalid parameters in the request.
+  remediation: Validate request parameters and body against the schema.
+  operations_count: 43
+- status: 401
+  title: Unauthorized
+  description: Missing or invalid API key.
+  remediation: Provide a valid API key in the Authorization header (no Bearer prefix).
+  operations_count: 43
+- status: 402
+  title: Payment Required
+  description: Insufficient credit balance to send the message.
+  remediation: Add credits under Plans & Billing; enable auto-recharge.
+  operations_count: 16
+- status: 403
+  title: Forbidden
+  description: Insufficient permissions or an account setting is not enabled.
+  remediation: Use an owner/admin API key and confirm the required account setting is enabled.
+  operations_count: 43
+- status: 404
+  title: Not Found
+  description: The requested resource doesn't exist.
+  remediation: Verify the resource ID and that it belongs to your workspace.
+  operations_count: 43
+- status: 409
+  title: Conflict
+  description: Conflict with another request or existing resource.
+  remediation: Resolve the duplicate/conflicting state and retry.
+  operations_count: 5
+- status: 500
+  title: Server Error
+  description: A Quo-side error occurred.
+  remediation: Retry with backoff; contact support if it persists.
+  operations_count: 43

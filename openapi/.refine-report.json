@@ -1,0 +1,30 @@
+{
+  "provider": "openphone",
+  "sources": [
+    "openphone-calls-api-openapi.yml",
+    "openphone-contact-custom-fields-api-openapi.yml",
+    "openphone-contacts-api-openapi.yml",
+    "openphone-conversations-api-openapi.yml",
+    "openphone-messages-api-openapi.yml",
+    "openphone-phone-numbers-api-openapi.yml",
+    "openphone-tasks-api-openapi.yml",
+    "openphone-users-api-openapi.yml",
+    "openphone-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "openphone-calls-api-openapi.yml",
+    "openphone-contact-custom-fields-api-openapi.yml",
+    "openphone-contacts-api-openapi.yml",
+    "openphone-conversations-api-openapi.yml",
+    "openphone-messages-api-openapi.yml",
+    "openphone-phone-numbers-api-openapi.yml",
+    "openphone-tasks-api-openapi.yml",
+    "openphone-users-api-openapi.yml",
+    "openphone-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

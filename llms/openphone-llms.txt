@@ -1,0 +1,70 @@
+# Quo Docs
+
+## Docs
+
+- [Authentication](https://www.quo.com/docs/mdx/api-reference/authentication.md): Learn how to gain API access.
+- [Get a call by ID](https://www.quo.com/docs/mdx/api-reference/calls/get-a-call-by-id.md): Get a call by its unique identifier.
+- [Get a summary for a call](https://www.quo.com/docs/mdx/api-reference/calls/get-a-summary-for-a-call.md): Retrieve a detailed summary of a specific call identified by its unique call ID. This endpoint supports summaries for both regular calls and calls handled by Sona. Call summaries are only available on business and scale plans.
+- [Get a transcription for a call](https://www.quo.com/docs/mdx/api-reference/calls/get-a-transcription-for-a-call.md): Retrieve a detailed transcript of a specific call identified by its unique call ID. This endpoint supports transcripts for both regular calls and calls handled by Sona. Call transcripts are only available on business and scale plans.
+- [Get a voicemail for a call](https://www.quo.com/docs/mdx/api-reference/calls/get-a-voicemail-for-a-call.md): Retrieve a voicemail associated with a specific call. Returns null data fields while the voicemail is processing in our system. Returns competed data fields when the voicemail has finished processing.
+- [Get recordings for a call](https://www.quo.com/docs/mdx/api-reference/calls/get-recordings-for-a-call.md): Retrieve a list of recordings associated with a specific call. The results are sorted chronologically, with the oldest recording segment appearing first in the list.
+- [List calls](https://www.quo.com/docs/mdx/api-reference/calls/list-calls.md): Fetch a paginated list of calls associated with a specific Quo number and another number.
+- [Changelog](https://www.quo.com/docs/mdx/api-reference/changelog.md): Stay up to date with the latest improvements to the API. View [main product Changelog.](https://support.quo.com/changelog)
+- [Get contact custom fields](https://www.quo.com/docs/mdx/api-reference/contact-custom-fields/get-contact-custom-fields.md): Custom contact fields enhance your Quo contacts with additional information beyond standard details like name, company, role, emails and phone numbers. These user-defined fields let you capture business-specific data. While you can only create or modify these fields in Quo itself, this endpoint retr…
+- [Create a contact](https://www.quo.com/docs/mdx/api-reference/contacts/create-a-contact.md): Create a contact for a workspace.
+- [Delete a contact](https://www.quo.com/docs/mdx/api-reference/contacts/delete-a-contact.md): Delete a contact by its unique identifier.
+- [Get a contact by ID](https://www.quo.com/docs/mdx/api-reference/contacts/get-a-contact-by-id.md): Retrieve detailed information about a specific contact in your Quo workspace using the contact's unique identifier.
+- [List contacts](https://www.quo.com/docs/mdx/api-reference/contacts/list-contacts.md): Retrieve a paginated list of contacts. You can optionally filter the results by providing external IDs and sources. When no external IDs are provided, all contacts for the organization are returned.
+- [Update a contact by ID](https://www.quo.com/docs/mdx/api-reference/contacts/update-a-contact-by-id.md): Modify an existing contact in your Quo workspace using the contact's unique identifier.
+- [List Conversations](https://www.quo.com/docs/mdx/api-reference/conversations/list-conversations.md): Fetch a paginated list of conversations of Quo conversations. Can be filtered by user and/or phone numbers. Defaults to all conversations in the Quo organization. Results are returned in descending order based on the most recent conversation.
+- [Mark conversation as done](https://www.quo.com/docs/mdx/api-reference/conversations/mark-conversation-as-done.md): Mark a conversation as done, removing it from the inbox without sending a message. Returns the updated conversation.
+- [Mark conversation as open](https://www.quo.com/docs/mdx/api-reference/conversations/mark-conversation-as-open.md): Mark a conversation as open, returning it to the inbox without sending a message. Returns the updated conversation.
+- [Mark conversation as read](https://www.quo.com/docs/mdx/api-reference/conversations/mark-conversation-as-read.md): Mark a conversation as read, clearing its unread indicator without sending a message. Returns the updated conversation.
+- [API response codes](https://www.quo.com/docs/mdx/api-reference/error-codes.md): Quo uses standard HTTP response codes to indicate request status.
+- [Introduction](https://www.quo.com/docs/mdx/api-reference/introduction.md): Welcome to the Quo API!
+- [Get a message by ID](https://www.quo.com/docs/mdx/api-reference/messages/get-a-message-by-id.md): Get a message by its unique identifier.
+- [List messages](https://www.quo.com/docs/mdx/api-reference/messages/list-messages.md): Retrieve a chronological list of messages exchanged between your Quo number and specified participants, with support for filtering and pagination.
+- [Send a text message](https://www.quo.com/docs/mdx/api-reference/messages/send-a-text-message.md): Send a text message from your Quo number to a recipient.
+- [Partner directory](https://www.quo.com/docs/mdx/api-reference/partner-directory.md): Connect with experts to achieve your customer communications goals.
+- [Get a phone number by ID](https://www.quo.com/docs/mdx/api-reference/phone-numbers/get-a-phone-number-by-id.md): Get a phone number by its unique identifier.
+- [List phone numbers](https://www.quo.com/docs/mdx/api-reference/phone-numbers/list-phone-numbers.md): Retrieve the list of phone numbers and users associated with your Quo workspace.
+- [Rate limits](https://www.quo.com/docs/mdx/api-reference/rate-limits.md): Quo implements rate limiting to ensure API stability and fair usage.
+- [Send your first message](https://www.quo.com/docs/mdx/api-reference/send-your-first-message.md): This is a step-by-step guide for sending your first text message.
+- [Assign a user to a task](https://www.quo.com/docs/mdx/api-reference/tasks/assign-a-user-to-a-task.md): Assigns the provided user to the list of assignees for the task
+- [Change a task's due date](https://www.quo.com/docs/mdx/api-reference/tasks/change-a-tasks-due-date.md): Sets the task's due date
+- [Complete a task](https://www.quo.com/docs/mdx/api-reference/tasks/complete-a-task.md): Marks the provided task as completed
+- [Create a task](https://www.quo.com/docs/mdx/api-reference/tasks/create-a-task.md): Create a task linked to a phone number, conversation, or conversation activity. Provide exactly one of `phoneNumberId`, `conversationId`, or `activityId`.
+- [Delete a task by ID](https://www.quo.com/docs/mdx/api-reference/tasks/delete-a-task-by-id.md): Deletes the task with the provided task ID
+- [Gets a task by ID](https://www.quo.com/docs/mdx/api-reference/tasks/gets-a-task-by-id.md): Retrieve a single task by its ID
+- [Link a task to a conversation](https://www.quo.com/docs/mdx/api-reference/tasks/link-a-task-to-a-conversation.md): Links the task with the provided task ID to a conversation
+- [List tasks](https://www.quo.com/docs/mdx/api-reference/tasks/list-tasks.md): Retrieve a list of tasks
+- [Remove a task's due date](https://www.quo.com/docs/mdx/api-reference/tasks/remove-a-tasks-due-date.md): Clears the task's due date
+- [Reopen a task](https://www.quo.com/docs/mdx/api-reference/tasks/reopen-a-task.md): Reopens the provided task
+- [Unassign a user from a task](https://www.quo.com/docs/mdx/api-reference/tasks/unassign-a-user-from-a-task.md): Removes the provided user from the assignee list of a task
+- [Unlink a task from a conversation](https://www.quo.com/docs/mdx/api-reference/tasks/unlink-a-task-from-a-conversation.md): Unlinks the provided conversation from the task
+- [Update a task](https://www.quo.com/docs/mdx/api-reference/tasks/update-a-task.md): Updates the task's title and description
+- [Get a user by ID](https://www.quo.com/docs/mdx/api-reference/users/get-a-user-by-id.md): Retrieve detailed information about a specific user in your Quo workspace using the user's unique identifier.
+- [List users](https://www.quo.com/docs/mdx/api-reference/users/list-users.md): Retrieve a paginated list of users in your Quo workspace.
+- [Create a new webhook for call summaries](https://www.quo.com/docs/mdx/api-reference/webhooks/create-a-new-webhook-for-call-summaries.md): Creates a new webhook that triggers on events from call summaries.
+- [Create a new webhook for call transcripts](https://www.quo.com/docs/mdx/api-reference/webhooks/create-a-new-webhook-for-call-transcripts.md): Creates a new webhook that triggers on events from call transcripts.
+- [Create a new webhook for calls](https://www.quo.com/docs/mdx/api-reference/webhooks/create-a-new-webhook-for-calls.md): Creates a new webhook that triggers on events from calls.
+- [Create a new webhook for messages](https://www.quo.com/docs/mdx/api-reference/webhooks/create-a-new-webhook-for-messages.md): Creates a new webhook that triggers on events from messages.
+- [Delete a webhook by ID](https://www.quo.com/docs/mdx/api-reference/webhooks/delete-a-webhook-by-id.md): Delete a webhook by its unique identifier.
+- [Get a webhook by ID](https://www.quo.com/docs/mdx/api-reference/webhooks/get-a-webhook-by-id.md): Get a webhook by its unique identifier.
+- [Lists all webhooks](https://www.quo.com/docs/mdx/api-reference/webhooks/lists-all-webhooks.md): List all webhooks for a user.
+- [Building with AI LLMs](https://www.quo.com/docs/mdx/guides/building-with-ai-llms.md): Learn how to use AI Language Models to build applications with the Quo API.
+- [External contacts](https://www.quo.com/docs/mdx/guides/contacts.md): Learn about working with contacts imported via the Quo API or native integrations.
+- [Sync your contacts](https://www.quo.com/docs/mdx/guides/sync-contacts.md): Implement a one-way contact sync from Google Sheets to Quo using Javascript.
+- [Contact the team](https://www.quo.com/docs/mdx/pricing-support/contact-the-team.md): Stuck? Need Help?
+- [Tips for minimizing costs](https://www.quo.com/docs/mdx/pricing-support/minimizing-costs.md): We’ve provided the below tips to help you minimize segment counts and save money.
+- [API Pricing overview](https://www.quo.com/docs/mdx/pricing-support/pricing-overview.md): Welcome to Quo's simple and transparent API pricing structure.
+- [Terms of Service](https://www.quo.com/docs/mdx/pricing-support/terms-of-service.md): Developer API Terms of Service
+
+## OpenAPI Specs
+
+- [openphone-public-api-2026-03-30-prod](https://openphone-public-api-prod.s3.us-west-2.amazonaws.com/public/openphone-public-api-2026-03-30-prod.json)
+- [openphone-public-api-v1-prod](https://openphone-public-api-prod.s3.us-west-2.amazonaws.com/public/openphone-public-api-v1-prod.json)
+
+## Optional
+
+- [OpenAPI download](https://openphone-public-api-prod.s3.us-west-2.amazonaws.com/public/openphone-public-api-v1-prod.json)

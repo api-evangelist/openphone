@@ -1,0 +1,35 @@
+generated: '2026-07-20'
+method: probed
+source: live probes of /.well-known/* on api.quo.com and www.quo.com
+note: No .well-known discovery documents are published (all 404). Recorded as valid absence.
+documents:
+- host: https://api.quo.com
+  path: /.well-known/security.txt
+  status: 404
+- host: https://api.quo.com
+  path: /.well-known/openid-configuration
+  status: 404
+- host: https://api.quo.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+- host: https://api.quo.com
+  path: /.well-known/api-catalog
+  status: 404
+- host: https://api.quo.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+- host: https://www.quo.com
+  path: /.well-known/security.txt
+  status: 404
+- host: https://www.quo.com
+  path: /.well-known/openid-configuration
+  status: 404
+- host: https://www.quo.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+- host: https://www.quo.com
+  path: /.well-known/api-catalog
+  status: 404
+- host: https://www.quo.com
+  path: /.well-known/ai-plugin.json
+  status: 404
