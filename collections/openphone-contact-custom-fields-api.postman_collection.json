@@ -1,0 +1,365 @@
+{
+  "item": [
+    {
+      "id": "1546519e-e195-418e-8f64-fd4de5515e8e",
+      "name": "Contact Custom Fields",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a94da072-0c83-4c4b-9029-696f40bf9be1",
+          "name": "Get contact custom fields",
+          "request": {
+            "name": "Get contact custom fields",
+            "description": {
+              "content": "Custom contact fields enhance your Quo contacts with additional information beyond standard details like name, company, role, emails and phone numbers. These user-defined fields let you capture business-specific data. While you can only create or modify these fields in Quo itself, this endpoint retrieves your existing custom properties. Use this information to accurately map and include important custom data when creating new contacts via the API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "contact-custom-fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "28f70786-4ddb-48bb-bdff-1ca4d1e1bf0b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "contact-custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"Inbound Lead\",\n      \"key\": \"inbound-lead\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"name\": \"Inbound Lead\",\n      \"key\": \"inbound-lead\",\n      \"type\": \"boolean\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4555a688-e5d2-417f-b607-05b121bd9c57",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "contact-custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 7475.739521741649,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f85387f-1e7f-47d7-9d54-494677df2f15",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "contact-custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 8874.340163453146,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65806cb3-3a2b-4504-934a-dc4fc987d5f6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "contact-custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 9559.483134520235,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbae8f8f-6995-4288-a364-1cd54f175de3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "contact-custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 3944.598399504292,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a51c74a-8a3d-4bc5-b8e8-c6d2f8dfeb8c",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "contact-custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 9629.769012805265,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.quo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cf8cd5b8-29f5-401f-a5d6-4e928ad467ba",
+    "name": "Quo Public Calls Contact Custom Fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for connecting with Quo.\n\nContact Support:\n Name: Quo Support\n Email: support@quo.com",
+      "type": "text/plain"
+    }
+  }
+}

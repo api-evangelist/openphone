@@ -1,0 +1,780 @@
+{
+  "item": [
+    {
+      "id": "97619aa9-68b1-4a1a-b337-385e0e092ffa",
+      "name": "Phone Numbers",
+      "description": {
+        "content": "Operations related to phone numbers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a8eeab57-bfaf-4808-bf06-46ff04fada4e",
+          "name": "List phone numbers",
+          "request": {
+            "name": "List phone numbers",
+            "description": {
+              "content": "Retrieve the list of phone numbers and users associated with your Quo workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "phone-numbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "026925f7-55ea-4b9c-9135-622874ecb56e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"PN123bc\",\n      \"groupId\": \"1234\",\n      \"portRequestId\": \"123abc\",\n      \"formattedNumber\": \"+15555555555\",\n      \"forward\": \"+15555555555\",\n      \"name\": \"My phone number\",\n      \"number\": \"+15555555555\",\n      \"portingStatus\": \"completed\",\n      \"symbol\": \"🏡\",\n      \"users\": [\n        {\n          \"email\": \"johndoe@example.com\",\n          \"firstName\": \"John\",\n          \"groupId\": \"GRcei8k90o\",\n          \"id\": \"US123abc\",\n          \"lastName\": \"Doe\",\n          \"role\": \"owner\"\n        },\n        {\n          \"email\": \"johndoe@example.com\",\n          \"firstName\": \"John\",\n          \"groupId\": \"GRcei8k90o\",\n          \"id\": \"US123abc\",\n          \"lastName\": \"Doe\",\n          \"role\": \"owner\"\n        }\n      ],\n      \"createdAt\": \" '2022-01-01T00:00:00Z'\",\n      \"updatedAt\": \" '2022-01-01T00:00:00Z'\",\n      \"restrictions\": {\n        \"calling\": {\n          \"CA\": \"unrestricted\",\n          \"Intl\": \"unrestricted\",\n          \"US\": \"unrestricted\"\n        },\n        \"messaging\": {\n          \"CA\": \"unrestricted\",\n          \"Intl\": \"unrestricted\",\n          \"US\": \"unrestricted\"\n        }\n      }\n    },\n    {\n      \"id\": \"PN123bc\",\n      \"groupId\": \"1234\",\n      \"portRequestId\": \"123abc\",\n      \"formattedNumber\": \"+15555555555\",\n      \"forward\": \"+15555555555\",\n      \"name\": \"My phone number\",\n      \"number\": \"+15555555555\",\n      \"portingStatus\": \"completed\",\n      \"symbol\": \"🏡\",\n      \"users\": [\n        {\n          \"email\": \"johndoe@example.com\",\n          \"firstName\": \"John\",\n          \"groupId\": \"GRcei8k90o\",\n          \"id\": \"US123abc\",\n          \"lastName\": \"Doe\",\n          \"role\": \"owner\"\n        },\n        {\n          \"email\": \"johndoe@example.com\",\n          \"firstName\": \"John\",\n          \"groupId\": \"GRcei8k90o\",\n          \"id\": \"US123abc\",\n          \"lastName\": \"Doe\",\n          \"role\": \"owner\"\n        }\n      ],\n      \"createdAt\": \" '2022-01-01T00:00:00Z'\",\n      \"updatedAt\": \" '2022-01-01T00:00:00Z'\",\n      \"restrictions\": {\n        \"calling\": {\n          \"CA\": \"unrestricted\",\n          \"Intl\": \"unrestricted\",\n          \"US\": \"unrestricted\"\n        },\n        \"messaging\": {\n          \"CA\": \"unrestricted\",\n          \"Intl\": \"unrestricted\",\n          \"US\": \"unrestricted\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5684eda5-600b-442c-af9f-934c25c88238",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 7013.860051320994,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf33cde0-be70-4561-a261-9db89d1f80b9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 5251.771224891907,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4da32006-37b9-41fa-9f88-c3d7b68ec93b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 4766.11394509693,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5639f6d-7b40-4ec7-b446-735946fda5e5",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 7797.969009335175,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a97a204-b2b4-4589-afb4-9768137ad72b",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 1524.964754709691,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89a02ec1-7ce0-4d02-8df9-b76176c3d207",
+          "name": "Get a phone number by ID",
+          "request": {
+            "name": "Get a phone number by ID",
+            "description": {
+              "content": "Get a phone number by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "phone-numbers",
+                ":phoneNumberId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "phoneNumberId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7fae4094-cb8b-4a08-8e9e-4416cb1b1753",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers",
+                    ":phoneNumberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phoneNumberId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"PN123bc\",\n    \"groupId\": \"1234\",\n    \"portRequestId\": \"123abc\",\n    \"formattedNumber\": \"+15555555555\",\n    \"forward\": \"+15555555555\",\n    \"name\": \"My phone number\",\n    \"number\": \"+15555555555\",\n    \"portingStatus\": \"completed\",\n    \"symbol\": \"🏡\",\n    \"users\": [\n      {\n        \"email\": \"johndoe@example.com\",\n        \"firstName\": \"John\",\n        \"groupId\": \"GRcei8k90o\",\n        \"id\": \"US123abc\",\n        \"lastName\": \"Doe\",\n        \"role\": \"owner\"\n      },\n      {\n        \"email\": \"johndoe@example.com\",\n        \"firstName\": \"John\",\n        \"groupId\": \"GRcei8k90o\",\n        \"id\": \"US123abc\",\n        \"lastName\": \"Doe\",\n        \"role\": \"owner\"\n      }\n    ],\n    \"createdAt\": \" '2022-01-01T00:00:00Z'\",\n    \"updatedAt\": \" '2022-01-01T00:00:00Z'\",\n    \"restrictions\": {\n      \"calling\": {\n        \"CA\": \"unrestricted\",\n        \"Intl\": \"unrestricted\",\n        \"US\": \"unrestricted\"\n      },\n      \"messaging\": {\n        \"CA\": \"unrestricted\",\n        \"Intl\": \"unrestricted\",\n        \"US\": \"unrestricted\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42543215-6ce6-4aff-9e5a-f76cf6af9866",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers",
+                    ":phoneNumberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phoneNumberId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 7013.860051320994,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "899b7999-fbb4-4420-a639-005c6d203f59",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers",
+                    ":phoneNumberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phoneNumberId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 5251.771224891907,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f57c17c-c3f8-4c77-ad04-18f3abb13c05",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers",
+                    ":phoneNumberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phoneNumberId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 4766.11394509693,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c188b65d-5736-438f-9c50-8ddcc8906b4b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers",
+                    ":phoneNumberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phoneNumberId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 7797.969009335175,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4041760-ef9d-4301-99a9-7c3125f9c9d9",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "phone-numbers",
+                    ":phoneNumberId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "phoneNumberId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 1524.964754709691,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.quo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "594272f4-4ef8-4035-aa2d-b95a8548e4e0",
+    "name": "Quo Public Calls Phone Numbers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for connecting with Quo.\n\nContact Support:\n Name: Quo Support\n Email: support@quo.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quo Public Calls Conversations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mark conversation as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/conversations/:conversationId/mark-as-read",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "CN123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a conversation as read, clearing its unread indicator without sending a message. Returns the updated conversation."
+        },
+        {
+          "info": {
+            "name": "Mark conversation as done",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/conversations/:conversationId/mark-as-done",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "CN123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a conversation as done, removing it from the inbox without sending a message. Returns the updated conversation."
+        },
+        {
+          "info": {
+            "name": "Mark conversation as open",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/conversations/:conversationId/mark-as-open",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "CN123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a conversation as open, returning it to the inbox without sending a message. Returns the updated conversation."
+        },
+        {
+          "info": {
+            "name": "List Conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/conversations",
+            "params": [
+              {
+                "name": "phoneNumber",
+                "value": "+15555555555",
+                "type": "query"
+              },
+              {
+                "name": "phoneNumbers",
+                "value": "+15555555555,PN123abc",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "US123abc",
+                "type": "query"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "excludeInactive",
+                "value": "true",
+                "type": "query"
+              },
+              {
+                "name": "updatedAfter",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "updatedBefore",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a paginated list of conversations of Quo conversations. Can be filtered by user and/or phone numbers. Defaults to all conversations in the Quo organization. Results are returned in descending order based on the most recent conversation."
+        },
+        {
+          "info": {
+            "name": "Mark conversation as read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/conversations/:conversationId/mark-as-read",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "CN123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a conversation as read, clearing its unread indicator without sending a message. Returns the updated conversation."
+        },
+        {
+          "info": {
+            "name": "Mark conversation as done",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/conversations/:conversationId/mark-as-done",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "CN123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a conversation as done, removing it from the inbox without sending a message. Returns the updated conversation."
+        },
+        {
+          "info": {
+            "name": "Mark conversation as open",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/conversations/:conversationId/mark-as-open",
+            "params": [
+              {
+                "name": "conversationId",
+                "value": "CN123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mark a conversation as open, returning it to the inbox without sending a message. Returns the updated conversation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

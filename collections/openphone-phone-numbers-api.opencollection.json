@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quo Public Calls Phone Numbers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Phone Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List phone numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/phone-numbers",
+            "params": [
+              {
+                "name": "userId",
+                "value": "US123abc",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the list of phone numbers and users associated with your Quo workspace."
+        },
+        {
+          "info": {
+            "name": "Get a phone number by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/phone-numbers/:phoneNumberId",
+            "params": [
+              {
+                "name": "phoneNumberId",
+                "value": "PNlja6rrtI",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a phone number by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

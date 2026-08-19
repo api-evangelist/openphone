@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quo Public Calls Contact Custom Fields API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get contact custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/contact-custom-fields",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Custom contact fields enhance your Quo contacts with additional information beyond standard details like name, company, role, emails and phone numbers. These user-defined fields let you capture business-specific data. While you can only create or modify these fields in Quo itself, this endpoint retrieves your existing custom properties. Use this information to accurately map and include important custom data when creating new contacts via the API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

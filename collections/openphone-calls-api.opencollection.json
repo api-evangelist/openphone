@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quo Public Calls API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get recordings for a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/call-recordings/:callId",
+            "params": [
+              {
+                "name": "callId",
+                "value": "AC3700e624eca547eb9f749a06f",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a list of recordings associated with a specific call. The results are sorted chronologically, with the oldest recording segment appearing first in the list."
+        },
+        {
+          "info": {
+            "name": "List calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/calls",
+            "params": [
+              {
+                "name": "phoneNumberId",
+                "value": "PN123abc",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "US123abc",
+                "type": "query"
+              },
+              {
+                "name": "participants",
+                "value": "+15555555555",
+                "type": "query"
+              },
+              {
+                "name": "since",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a paginated list of calls associated with a specific Quo number and another number."
+        },
+        {
+          "info": {
+            "name": "Get a call by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/calls/:callId",
+            "params": [
+              {
+                "name": "callId",
+                "value": "AC3700e624eca547eb9f749a06f2eb1",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a call by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Get a summary for a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/call-summaries/:callId",
+            "params": [
+              {
+                "name": "callId",
+                "value": "AC3700e624eca547eb9f749a06f",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a detailed summary of a specific call identified by its unique call ID. This endpoint supports summaries for both regular calls and calls handled by Sona. Call summaries are only available on business and scale plans."
+        },
+        {
+          "info": {
+            "name": "Get a transcription for a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/call-transcripts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "AC3700e624eca547eb9f749a06f2eb1",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a detailed transcript of a specific call identified by its unique call ID. This endpoint supports transcripts for both regular calls and calls handled by Sona. Call transcripts are only available on business and scale plans."
+        },
+        {
+          "info": {
+            "name": "Get a voicemail for a call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/call-voicemails/:callId",
+            "params": [
+              {
+                "name": "callId",
+                "value": "AC3700e624eca547eb9f749a06f",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a voicemail associated with a specific call. Returns null data fields while the voicemail is processing in our system. Returns competed data fields when the voicemail has finished processing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

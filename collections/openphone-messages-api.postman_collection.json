@@ -1,0 +1,2059 @@
+{
+  "item": [
+    {
+      "id": "654a44d3-8261-4d7b-968b-d4e992695733",
+      "name": "Messages",
+      "description": {
+        "content": "Operations related to text messages",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fde73775-0a97-4b59-90b8-128a89570d99",
+          "name": "Retry a failed message",
+          "request": {
+            "name": "Retry a failed message",
+            "description": {
+              "content": "Attempt to re-deliver a message that previously failed to send. Only messages with a `failed` status can be retried. Messages that have permanently failed (a `failed` status with an error code) and messages with an `undelivered` status cannot be retried.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messages",
+                ":messageId",
+                "retry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "messageId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "Quo-Api-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "16fa1afa-a761-4228-9064-76b2bcd43130",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5124bcc3-db54-40bf-bba1-2bc2d6dfb62a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The input was invalid\",\n  \"docs\": \"https://quo.com/docs\",\n  \"title\": \"Bad Request\",\n  \"errors\": [\n    {\n      \"path\": \"/messageId\",\n      \"message\": \"Expected string to match '^AC(.*)$'\",\n      \"value\": \"abc123\",\n      \"schema\": {\n        \"type\": \"TemplateLiteral\",\n        \"pattern\": \"^AC(.*)$\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d3fabdd-bd43-4dd5-9bd1-15f6ac24b882",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorized\",\n  \"docs\": \"https://quo.com/docs\",\n  \"title\": \"Unauthorized\",\n  \"trace\": \"6897907457496870895\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc421060-283e-4b72-80d2-b1529caf9c73",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The user is forbidden from accessing the message\",\n  \"docs\": \"https://quo.com/docs\",\n  \"title\": \"Forbidden\",\n  \"trace\": \"6897907457496870895\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "752c2d27-c0de-4303-a6fe-4316ed565571",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Message not found\",\n  \"docs\": \"https://quo.com/docs\",\n  \"title\": \"Not Found\",\n  \"trace\": \"6897907457496870895\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5dfa1ea-a9f9-491d-a653-889d0314c53b",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The message has permanently failed and cannot be retried\",\n  \"docs\": \"https://quo.com/docs\",\n  \"title\": \"Unprocessable Entity\",\n  \"trace\": \"6897907457496870895\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8890cecb-2adf-4ab3-b63e-1ad92194c1c9",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    ":messageId",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "messageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Quo-Api-Version",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"We have encountered an unknown error\",\n  \"docs\": \"https://quo.com/docs\",\n  \"title\": \"Unknown\",\n  \"trace\": \"6897907457496870895\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb0db2c7-2dbf-4767-ba47-75034e699778",
+          "name": "Send a text message",
+          "request": {
+            "name": "Send a text message",
+            "description": {
+              "content": "Send a text message from your Quo number to a recipient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"<string>\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"setInboxStatus\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08539479-269b-4fe6-a245-614ebff5aa3f",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"AC123abc\",\n    \"to\": [\n      \"+15555555555\",\n      \"+15555555555\"\n    ],\n    \"from\": \"+15555555555\",\n    \"text\": \"Hello, world!\",\n    \"phoneNumberId\": \"PN123abc\",\n    \"conversationId\": \"CN123abc\",\n    \"direction\": \"incoming\",\n    \"userId\": \"US123abc\",\n    \"status\": \"sent\",\n    \"createdAt\": \"2022-01-01T00:00:00Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dbfb351-59e1-4ab9-a13b-7df22eb5f37b",
+              "name": "A2P Registration Not Approved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 4296.56844566944,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08bfdf3f-6f85-445a-b079-e93366abc41f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 6801.488559071846,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48f728a8-6745-4975-95b3-a75981cccb4f",
+              "name": "Subscription Expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 3912.8841877323416,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e83f0f4-c41a-4efa-9373-e82d2ca8b0fe",
+              "name": "Not Phone Number User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 2294.0211296986636,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63a0bf99-cf54-4043-9bfe-5085ab51fb4d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 8758.78943538984,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53faaec4-79e9-4bae-816c-fc103d090c49",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": [\n    \"+15555555555\"\n  ],\n  \"phoneNumberId\": \"<string>\",\n  \"userId\": \"US123abc\",\n  \"setInboxStatus\": \"done\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 273.1771005305284,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "118d2a05-e541-49e2-8f60-5d898f96352a",
+          "name": "List messages",
+          "request": {
+            "name": "List messages",
+            "description": {
+              "content": "Retrieve a chronological list of messages exchanged between your Quo number and specified participants, with support for filtering and pagination. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "phoneNumberId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "participants",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "since",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAfter",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "createdBefore",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "10",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e93ce123-39b0-4f0a-ad61-f6cce65a36d8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"AC123abc\",\n      \"to\": [\n        \"+15555555555\",\n        \"+15555555555\"\n      ],\n      \"from\": \"+15555555555\",\n      \"text\": \"Hello, world!\",\n      \"phoneNumberId\": \"PN123abc\",\n      \"conversationId\": \"CN123abc\",\n      \"direction\": \"incoming\",\n      \"userId\": \"US123abc\",\n      \"status\": \"sent\",\n      \"createdAt\": \"2022-01-01T00:00:00Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00Z\"\n    },\n    {\n      \"id\": \"AC123abc\",\n      \"to\": [\n        \"+15555555555\",\n        \"+15555555555\"\n      ],\n      \"from\": \"+15555555555\",\n      \"text\": \"Hello, world!\",\n      \"phoneNumberId\": \"PN123abc\",\n      \"conversationId\": \"CN123abc\",\n      \"direction\": \"incoming\",\n      \"userId\": \"US123abc\",\n      \"status\": \"sent\",\n      \"createdAt\": \"2022-01-01T00:00:00Z\",\n      \"updatedAt\": \"2022-01-01T00:00:00Z\"\n    }\n  ],\n  \"totalItems\": 6020,\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85ee8d4f-ae3a-4668-b4a6-81bf26f6ece9",
+              "name": "A2P Registration Not Approved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 4296.56844566944,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "066d2cbd-cb50-4bbe-9954-de509cd6c0e0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 6801.488559071846,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3219645a-bd46-40ee-99e7-bcfba38f5cfb",
+              "name": "Subscription Expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 3912.8841877323416,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "725149ee-9e48-4be1-8fc0-92ebed2499ee",
+              "name": "Not Phone Number User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 2294.0211296986636,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d44a9f1b-acc0-414a-8d66-996fb9f33746",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 8758.78943538984,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59660376-b367-4170-b624-ab08ee1beece",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phoneNumberId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "US123abc"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "participants",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdAfter",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "createdBefore",
+                      "value": "2022-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 273.1771005305284,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00bb7947-968d-40b2-94cb-29d90b6bef2b",
+          "name": "Get a message by ID",
+          "request": {
+            "name": "Get a message by ID",
+            "description": {
+              "content": "Get a message by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "messages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4604b503-561a-4d85-83ae-943ba9cc32c0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"AC123abc\",\n    \"to\": [\n      \"+15555555555\",\n      \"+15555555555\"\n    ],\n    \"from\": \"+15555555555\",\n    \"text\": \"Hello, world!\",\n    \"phoneNumberId\": \"PN123abc\",\n    \"conversationId\": \"CN123abc\",\n    \"direction\": \"incoming\",\n    \"userId\": \"US123abc\",\n    \"status\": \"sent\",\n    \"createdAt\": \"2022-01-01T00:00:00Z\",\n    \"updatedAt\": \"2022-01-01T00:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a598044a-8ce5-42e5-bbfa-d1a1f027c82a",
+              "name": "A2P Registration Not Approved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 4296.56844566944,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9546606-d0c8-44f0-9fa1-0e33b9da9de0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 6801.488559071846,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4e9db9e-8c48-46e7-919b-d6cc608c15b4",
+              "name": "Subscription Expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 3912.8841877323416,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "664f45a5-815b-4b5b-b25d-64135653e49f",
+              "name": "Not Phone Number User",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 2294.0211296986636,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2192b7cd-fbc3-47da-946e-fe32e7e4599b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 8758.78943538984,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ea8999f-c8a5-41f5-9f0e-b64c2b3f5125",
+              "name": "Unknown Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "messages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\",\n  \"status\": 273.1771005305284,\n  \"docs\": \"string\",\n  \"title\": \"string\",\n  \"trace\": \"string\",\n  \"errors\": [\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    },\n    {\n      \"path\": \"string\",\n      \"message\": \"string\",\n      \"schema\": {\n        \"type\": \"string\"\n      },\n      \"value\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.quo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f3618f33-1ab5-486e-b7d3-ef26f2a594ea",
+    "name": "Quo Public Calls Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for connecting with Quo.\n\nContact Support:\n Name: Quo Support\n Email: support@quo.com",
+      "type": "text/plain"
+    }
+  }
+}

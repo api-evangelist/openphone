@@ -142,3 +142,9 @@ tools:
 - name: createCallTranscriptWebhook_v1
   description: Create a new webhook for call transcripts
   source_operation: openapi/openphone-openapi-original.json#createCallTranscriptWebhook_v1
+deployment:
+  mode: none
+  verified: derived
+  tools: 43
+  checked: '2026-08-12'
+  source: catalog MCP census

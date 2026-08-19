@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quo Public Calls Messages API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retry a failed message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/messages/:messageId/retry",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "messageId",
+                "value": "AC123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Attempt to re-deliver a message that previously failed to send. Only messages with a `failed` status can be retried. Messages that have permanently failed (a `failed` status with an error code) and messages with an `undelivered` status cannot be retried."
+        },
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/messages",
+            "params": [
+              {
+                "name": "phoneNumberId",
+                "value": "OP123abc",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "US123abc",
+                "type": "query"
+              },
+              {
+                "name": "participants",
+                "value": "+15555555555",
+                "type": "query"
+              },
+              {
+                "name": "since",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2022-01-01T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a chronological list of messages exchanged between your Quo number and specified participants, with support for filtering and pagination. "
+        },
+        {
+          "info": {
+            "name": "Send a text message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Send a text message from your Quo number to a recipient."
+        },
+        {
+          "info": {
+            "name": "Get a message by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/messages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "AC123abc",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a message by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

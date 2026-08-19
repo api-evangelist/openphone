@@ -1,0 +1,520 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quo Public Calls Webhooks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/webhooks",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all webhooks for an organization."
+        },
+        {
+          "info": {
+            "name": "Create a new webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/webhooks",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a versioned webhook through the unified endpoint when using the API version header."
+        },
+        {
+          "info": {
+            "name": "Get a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/webhooks/:webhookId",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a webhook by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.quo.com/webhooks/:webhookId",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Partially update an existing webhook. Only the fields provided in the request body will be updated."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.quo.com/webhooks/:webhookId",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a webhook by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Rotate webhook signing secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/webhooks/:webhookId/rotate",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Rotates the signing secret for a webhook. The new secret will be returned in the response."
+        },
+        {
+          "info": {
+            "name": "List deliveries for a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/webhooks/:webhookId/events",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "after",
+                "value": "eyJsYXN0SWQiOiJVU211a09NaXBhIn0",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "success",
+                "type": "query"
+              },
+              {
+                "name": "eventTypes",
+                "value": "message.received",
+                "type": "query"
+              },
+              {
+                "name": "createdBefore",
+                "value": "2026-01-02T00:00:00Z",
+                "type": "query"
+              },
+              {
+                "name": "createdAfter",
+                "value": "2026-01-01T00:00:00Z",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List events that have been dispatched to a webhook, one row per event with its current delivery status. Use the `after` query param to page through results."
+        },
+        {
+          "info": {
+            "name": "Get delivery detail for a webhook event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/webhooks/:webhookId/events/:eventId",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              },
+              {
+                "name": "eventId",
+                "value": "msg_2abcDEFghiJKLmnoPQRstu",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the delivery detail for a single event dispatched to a webhook, including the server response for each attempt."
+        },
+        {
+          "info": {
+            "name": "Retry delivery of a webhook event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/webhooks/:webhookId/events/:eventId/retry",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              },
+              {
+                "name": "eventId",
+                "value": "msg_2abcDEFghiJKLmnoPQRstu",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Queue a new delivery attempt for a previously dispatched event. The retry is processed asynchronously; use the delivery detail endpoint to inspect the new attempt."
+        },
+        {
+          "info": {
+            "name": "Send a test event to a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/webhooks/:webhookId/events/test",
+            "headers": [
+              {
+                "name": "Quo-Api-Version",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Dispatches a canonical sample payload of the specified event type to the webhook URL so you can validate your endpoint before going live. The response returns the rendered sample payload so you can preview the body your endpoint will receive. Delivery to your URL is processed asynchronously; use the delivery detail endpoint to inspect the attempt."
+        },
+        {
+          "info": {
+            "name": "Lists all webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/webhooks",
+            "params": [
+              {
+                "name": "userId",
+                "value": "U55wgP5I5",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all webhooks for a user."
+        },
+        {
+          "info": {
+            "name": "Get a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.quo.com/v1/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "WH12345",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a webhook by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.quo.com/v1/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "WH12345",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a webhook by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Create a new webhook for messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/webhooks/messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new webhook that triggers on events from messages."
+        },
+        {
+          "info": {
+            "name": "Create a new webhook for calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/webhooks/calls",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new webhook that triggers on events from calls."
+        },
+        {
+          "info": {
+            "name": "Create a new webhook for call summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/webhooks/call-summaries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new webhook that triggers on events from call summaries."
+        },
+        {
+          "info": {
+            "name": "Create a new webhook for call transcripts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.quo.com/v1/webhooks/call-transcripts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new webhook that triggers on events from call transcripts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
