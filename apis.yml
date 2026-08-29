@@ -183,6 +183,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/openphone-capability-edges.yml
+  name: OpenPhone Business Capability Map
 - type: TrustCenter
   url: security/openphone-trust-center.yml
 - type: DomainSecurity
