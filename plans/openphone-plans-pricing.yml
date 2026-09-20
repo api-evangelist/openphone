@@ -1,0 +1,30 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.quo.com/docs/mdx/pricing-support/pricing-overview
+sources:
+- https://www.quo.com/docs/mdx/pricing-support/pricing-overview
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: usage-other
+published: true
+note: API messaging priced per SMS segment; credit-based billing, active Quo subscription required for
+  API access. MMS not supported.
+plan_count: 2
+currency: USD
+plans:
+- name: Local (US and Canada) SMS
+  price_text: $0.01 per segment
+  price: 0.01
+  currency: USD
+  period: per-use
+  unit: message segment
+- name: International SMS
+  price_text: $0.01 + country-specific rate per segment
+  currency: USD
+  period: per-use
+  unit: message segment
+  overage: Rates vary by destination country
