@@ -1,30 +1,45 @@
 {
   "provider": "openphone",
   "sources": [
-    "openphone-calls-api-openapi.yml",
-    "openphone-contact-custom-fields-api-openapi.yml",
-    "openphone-contacts-api-openapi.yml",
-    "openphone-conversations-api-openapi.yml",
-    "openphone-messages-api-openapi.yml",
-    "openphone-phone-numbers-api-openapi.yml",
-    "openphone-tasks-api-openapi.yml",
-    "openphone-users-api-openapi.yml",
-    "openphone-webhooks-api-openapi.yml"
+    "_original/openphone-2026-03-30-openapi.json",
+    "_original/openphone-openapi-original.json"
   ],
   "outputs": [
-    "openphone-calls-api-openapi.yml",
-    "openphone-contact-custom-fields-api-openapi.yml",
     "openphone-contacts-api-openapi.yml",
     "openphone-conversations-api-openapi.yml",
     "openphone-messages-api-openapi.yml",
-    "openphone-phone-numbers-api-openapi.yml",
-    "openphone-tasks-api-openapi.yml",
     "openphone-users-api-openapi.yml",
-    "openphone-webhooks-api-openapi.yml"
+    "openphone-webhooks-api-openapi.yml",
+    "openphone-calls-api-openapi.yml",
+    "openphone-contact-custom-fields-api-openapi.yml",
+    "openphone-phone-numbers-api-openapi.yml",
+    "openphone-tasks-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openphone-2026-03-30-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "openphone-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "openphone-openapi-original.json: declared missing tag: Contact Custom Fields",
+    "openphone-openapi-original.json: declared missing tag: Tasks",
+    "tag 'Contacts' spans 2 source specs (openphone-2026-03-30-openapi.json, openphone-openapi-original.json): per-path servers applied",
+    "tag 'Conversations' spans 2 source specs (openphone-2026-03-30-openapi.json, openphone-openapi-original.json): per-path servers applied",
+    "tag 'Messages' spans 2 source specs (openphone-2026-03-30-openapi.json, openphone-openapi-original.json): per-path servers applied",
+    "tag 'Users' spans 2 source specs (openphone-2026-03-30-openapi.json, openphone-openapi-original.json): per-path servers applied",
+    "tag 'Webhooks' spans 2 source specs (openphone-2026-03-30-openapi.json, openphone-openapi-original.json): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "openphone-calls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-contact-custom-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-conversations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-phone-numbers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "openphone-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

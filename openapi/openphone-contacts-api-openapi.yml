@@ -1,13 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Quo Public Calls Contacts API
+  title: Openphone Contacts API
   version: 1.0.0
-  description: API for connecting with Quo.
   contact:
     name: Quo Support
     email: support@quo.com
     url: https://support.quo.com/
   termsOfService: https://www.quo.com/terms
+  description: 'Operations tagged Contacts across 2 of this provider''s published API definitions: openphone-2026-03-30-openapi.json, openphone-openapi-original.json. Each path carries the servers of the definition it was published in.'
 servers:
 - description: Production server
   url: https://api.quo.com
@@ -431,6 +431,9 @@ paths:
                 docs: https://quo.com/docs
                 title: Unknown Error
                 trace: '6897907457496870895'
+    servers:
+    - description: Production server
+      url: https://api.quo.com
   /contacts/{contactId}:
     get:
       tags:
@@ -802,6 +805,9 @@ paths:
                 docs: https://quo.com/docs
                 title: Unknown Error
                 trace: '6897907457496870895'
+    servers:
+    - description: Production server
+      url: https://api.quo.com
   /v1/contacts:
     post:
       tags:
@@ -2293,6 +2299,9 @@ paths:
                           properties:
                             type:
                               type: string
+    servers:
+    - description: Production server
+      url: https://api.quo.com
   /v1/contacts/{id}:
     get:
       tags:
@@ -4086,9 +4095,15 @@ paths:
                           properties:
                             type:
                               type: string
+    servers:
+    - description: Production server
+      url: https://api.quo.com
 components:
   securitySchemes:
     apiKey:
       in: header
       name: Authorization
       type: apiKey
+x-refined-from:
+- openphone-2026-03-30-openapi.json
+- openphone-openapi-original.json
